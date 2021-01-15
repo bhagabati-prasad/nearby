@@ -20,9 +20,9 @@ module.exports.signupPost = async (req, res) => {
     });
     // secure: false,
     // create new user
-    const registered = await registerUser.save();
-    console.log("user registered ", registered);
-    res.status(200).json(registered);
+    const registeredUser = await registerUser.save();
+    console.log("user registered ", registeredUser);
+    res.status(200).json({ isLoggedIn: true, user: registeredUser });
   } catch (error) {
     console.log(error);
     res.json({ error });

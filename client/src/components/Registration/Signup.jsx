@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import {
   Center,
@@ -8,11 +8,13 @@ import {
   FormField,
   Input,
 } from "./regElements";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SignupBg from "../../image/writing.jpg";
+import { UserContext } from "../Context/UserContext";
 
 const Signup = () => {
-  const history = useHistory();
+  // set user from context
+  const { setUser } = useContext(UserContext);
   const [term, setTerm] = useState(false);
   const [signup, setSignup] = useState({
     fname: "",
@@ -55,7 +57,7 @@ const Signup = () => {
             ...signup,
           });
           console.log(res);
-          // history.goBack();
+          setUser({ ...res.data });
         } else {
           setErrors({ ...errors, conPasswordErr: "Password didn't matched." });
         }

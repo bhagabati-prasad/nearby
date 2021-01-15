@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 // @route GET /api/login
 module.exports.loginGet = (req, res) => {
-  res.send({ isLoggedIn: true, user: req.user });
+  res.json({ isLoggedIn: true, user: req.user });
 };
 
 // @route POST /api/login
@@ -22,7 +22,7 @@ module.exports.loginPost = async (req, res) => {
         });
         // secure: false,
         console.log(userRes);
-        res.status(200).json(userRes);
+        res.status(200).json({ isLoggedIn: true, user: userRes });
       } else {
         console.log("password error");
         res.send({ message: "password error" });

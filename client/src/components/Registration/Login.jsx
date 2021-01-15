@@ -9,14 +9,12 @@ import {
   Input,
 } from "./regElements";
 import LoginBg from "../../image/write-note.jpg";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 
 const Login = () => {
-  const history = useHistory();
-  // get user from context
-  const { user } = useContext(UserContext);
-  console.log("login ", user);
+  // set user from context
+  const { setUser } = useContext(UserContext);
 
   const [login, setLogin] = useState({
     email: "",
@@ -34,8 +32,7 @@ const Login = () => {
       const res = await Axios.post("http://localhost:4000/api/login", {
         ...login,
       });
-      console.log(res);
-      // history.goBack();
+      setUser({ ...res.data });
     } catch (error) {
       console.error(error);
     }

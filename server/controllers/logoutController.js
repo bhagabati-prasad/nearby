@@ -5,9 +5,11 @@ module.exports.logout_this = async (req, res) => {
     );
     res.clearCookie("user");
     await req.user.save();
-    res.send("logout");
+    res
+      .status(200)
+      .json({ isLoggedIn: false, user: "logged out from this device" });
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).json({ error });
   }
 };
 
@@ -16,7 +18,9 @@ module.exports.logout_all = async (req, res) => {
     req.user.tokens = [];
     res.clearCookie("user");
     await req.user.save();
-    res.send("logout");
+    res
+      .status(200)
+      .json({ isLoggedIn: false, user: "logged out from all devices" });
   } catch (error) {
     res.send(error);
   }

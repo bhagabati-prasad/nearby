@@ -19,7 +19,7 @@ import { UserContext } from "../Context/UserContext";
 
 const Header = () => {
   // get user from context
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   console.log("header ", user);
 
   const [location, setLocation] = useState({
@@ -32,12 +32,12 @@ const Header = () => {
 
   const logoutThis = () => {
     Axios.get("http://localhost:4000/api/logout/this").then((res) =>
-      console.log(res)
+      setUser({ ...res.data })
     );
   };
   const logoutAll = () => {
     Axios.get("http://localhost:4000/api/logout/all").then((res) =>
-      console.log(res)
+      setUser({ ...res.data })
     );
   };
 

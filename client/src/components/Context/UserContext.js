@@ -10,12 +10,16 @@ export const UserProvider = (props) => {
   });
 
   useEffect(() => {
-    Axios.get("http://localhost:4000/api/login").then((res) => {
-      setUser({
-        isLoggedIn: res.data.isLoggedIn,
-        userData: res.data.user,
-      });
-    });
+    const checkLoggedIn = async () => {
+      const res = await Axios.get("http://localhost:4000/api/login");
+      if (res.status == 200) {
+        setUser({
+          isLoggedIn: res.data.isLoggedIn,
+          userData: res.data.user,
+        });
+      }
+    };
+    checkLoggedIn();
   }, []);
 
   return (
