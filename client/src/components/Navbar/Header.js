@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import {
   HeaderNav,
@@ -15,16 +15,18 @@ import {
   PostAdBtn,
 } from "./NavbarElements";
 import { IoIosAdd } from "react-icons/io";
+import { UserContext } from "../Context/UserContext";
 
 const Header = () => {
-  const [user, setUser] = useState({
-    isLoggedIn: false,
-    userData: "",
-  });
+  // get user from context
+  const { user } = useContext(UserContext);
+  console.log("header ", user);
+
   const [location, setLocation] = useState({
     pincode: 751019,
     area: "Khandagiri, Bhubaneswar, Odisha, In",
   });
+
   const handleChange = (e) =>
     setLocation({ ...location, [e.target.name]: e.target.value });
 
@@ -38,16 +40,6 @@ const Header = () => {
       console.log(res)
     );
   };
-
-  useEffect(() => {
-    Axios.get("http://localhost:4000/api/login").then((res) => {
-      setUser({
-        ...user,
-        isLoggedIn: res.data.isLoggedIn,
-        userData: res.data.user,
-      });
-    });
-  }, []);
 
   console.log(user);
   return (

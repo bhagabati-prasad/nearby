@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import {
   Center,
@@ -10,9 +10,13 @@ import {
 } from "./regElements";
 import LoginBg from "../../image/write-note.jpg";
 import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../Context/UserContext";
 
 const Login = () => {
-  let history = useHistory();
+  const history = useHistory();
+  // get user from context
+  const { user } = useContext(UserContext);
+  console.log("login ", user);
 
   const [login, setLogin] = useState({
     email: "",
