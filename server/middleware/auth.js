@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
     // const reqToken = req.headers["x-access-token"];
     const reqToken = req.cookies.user;
     if (!reqToken) {
-      res.send("you need a token");
+      res.json({ isLoggedIn: false, error: "you need a token" });
     } else {
       const decoded = jwt.verify(reqToken, process.env.SECRET_TOKEN);
       const user = await User.findOne({ _id: decoded._id });

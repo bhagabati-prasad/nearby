@@ -28,19 +28,3 @@ module.exports.signupPost = async (req, res) => {
     res.json({ error });
   }
 };
-
-// {
-//   _id: 5fe75a7ab78a4323d0c7d07e,
-//   firstName: 'verwavrwe',
-//   lastName: 'awvrttwe',
-//   email: 'tryujsyaqwf',
-//   phone: 123454312,
-//   password: '$2b$10$.rIGkf1bZ4uM3EHv169g5uR7QykA5I9ljFZzgBEEWl8.xP.sukQ02',
-//   tokens: [
-//     {
-//       _id: 5fe75a7ab78a4323d0c7d07f,
-//       token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmU3NWE3YWI3OGE0MzIzZDBjN2QwN2UiLCJpYXQiOjE2MDg5OTc0OTh9.L2MdLi_1j97u5PMTSCs65LNnE1DSDHmKn06rzQRA9_s'
-//     }
-//   ],
-//   __v: 0
-// }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styled from "styled-components";
 import { demoItems } from "../Homepage/demoItems";
-import CardItem from "../Homepage/sections/CardItem";
+import CardItem from "../CardItem";
 
 export const ViewAllBtn = styled.button`
   height: 40px;

@@ -1,7 +1,7 @@
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import CardItem from "./CardItem";
+import CardItem from "../../CardItem";
 import { demoItems } from "../demoItems";
 
 export const ViewAllBtn = styled(Link)`
@@ -43,7 +43,3 @@ const RentSection = () => {
 };
 
 export default RentSection;
-
-// var film = this.props.data.slice(0, 5).map((item) => {
-//   return <FilmItem key={item.id} film={item} />;
-// });

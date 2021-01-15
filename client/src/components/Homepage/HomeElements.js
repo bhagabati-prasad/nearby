@@ -33,8 +33,8 @@ export const List = styled.li`
   text-align: left;
 `;
 
-// export const SidebarLink = styled(Link)`
-export const SidebarLink = styled.p`
+// export const SidebarLink = styled.p`
+export const SidebarLink = styled(Link)`
   color: #222;
   background: ${({ subnav }) => (subnav ? "#fff" : "#444")};
   text-decoration: none;

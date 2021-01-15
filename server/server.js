@@ -5,9 +5,10 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const connectDB = require("./config/dbconn");
 // require routes
-const loginRoute = require("./routes/loginRoutes");
-const signupRoute = require("./routes/signupRoutes");
-const logoutRoute = require("./routes/logoutRoutes");
+const loginRoutes = require("./routes/loginRoutes");
+const signupRoutes = require("./routes/signupRoutes");
+const logoutRoutes = require("./routes/logoutRoutes");
+const postAdRoutes = require("./routes/postAdRoutes");
 
 // load env vars
 dotenv.config();
@@ -32,13 +33,14 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.send("Welcome to home page");
 });
-app.use("/api/login", loginRoute);
-app.use("/api/signup", signupRoute);
-app.use("/api/logout", logoutRoute);
-// app.use("/api/rent");
+app.use("/api/login", loginRoutes);
+app.use("/api/signup", signupRoutes);
+app.use("/api/logout", logoutRoutes);
+app.use("/api/post", postAdRoutes);
+
 app.get("*", (req, res) => {
   res.send("Nothing is here!");
 });
 // starting server on port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`listening on port ${port}...`));

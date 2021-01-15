@@ -1,5 +1,5 @@
 import { Row } from "react-bootstrap";
-import CardItem from "./CardItem";
+import CardItem from "../../CardItem";
 import { demoItems } from "../demoItems";
 import { ViewAllBtn } from "./RentSection";
 

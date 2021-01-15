@@ -10,10 +10,10 @@ import {
 } from "./regElements";
 import LoginBg from "../../image/write-note.jpg";
 import { Link, useHistory } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const Login = () => {
   let history = useHistory();
+
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -36,18 +36,6 @@ const Login = () => {
       console.error(error);
     }
   };
-
-  const logout = () => {
-    Axios.get("http://localhost:4000/api/logout").then((res) =>
-      console.log(res)
-    );
-  };
-
-  useEffect(() => {
-    Axios.get("http://localhost:4000/api/login").then((res) =>
-      console.log(res)
-    );
-  }, []);
 
   return (
     <>
@@ -87,9 +75,6 @@ const Login = () => {
             <p style={{ fontSize: "1.45rem" }}>
               Don't have an account? <Link to='/signup'>Sign up</Link>
             </p>
-            <button className='btn btn-warning' onClick={logout}>
-              Logout
-            </button>
           </RightFormDiv>
         </FormContainer>
       </Center>

@@ -22,16 +22,39 @@ const userSchema = new mongoose.Schema({
     required: [true, "Phone number is required"],
     // unique: true,
   },
+  altPhone: {
+    type: String,
+  },
   password: {
     type: String,
     required: [true, "Password is required"],
     minlength: [3, "Password must be 3 character"],
   },
+  address: {
+    house: {
+      type: String,
+    },
+    street: {
+      type: String,
+    },
+    area: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    pincode: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+  },
   tokens: [
     {
       token: {
         type: String,
-        // required: true,
+        // required: true
       },
     },
   ],

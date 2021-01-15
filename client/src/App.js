@@ -10,8 +10,10 @@ import ViewAllItems from "./components/ViewItem/ViewAllItems";
 import { Col, Container, Row } from "react-bootstrap";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Login from "./components/Services/Login";
-import Signup from "./components/Services/Signup";
+import Login from "./components/Registration/Login";
+import Signup from "./components/Registration/Signup";
+import Profile from "./components/Profile";
+import Post from "./components/Post";
 
 function App() {
   return (
@@ -26,13 +28,22 @@ function App() {
               <Route exact path='/contact' component={Contact} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
-
-              <Route exact path='/:categ' component={ViewAllItems} />
-              <Route path='/:categ/:id' component={SignleItemDetails} />
-              {/* 
               <Route exact path='/category/:categ' component={ViewAllItems} />
-              <Route path='/category/:categ/item/:id' component={SignleItemDetails} />
-              */}
+
+              <Route path='/post' component={Post} />
+
+              <Route
+                exact
+                path='/category/:categ/item/:id'
+                component={SignleItemDetails}
+              />
+              <Route
+                exact
+                path='/user/profile/edit'
+                render={() => <h1>Edit profile</h1>}
+              />
+              <Route path='/user/profile' component={Profile} />
+
               <Route render={() => <h1>Sorry, nothing is here!</h1>} />
             </Switch>
             <Footer />
