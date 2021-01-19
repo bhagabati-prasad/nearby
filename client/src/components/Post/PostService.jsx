@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   AdHeading,
   AdTitle,
@@ -9,77 +10,213 @@ import {
   Label,
   Input,
   Textarea,
+  SelectList,
   SubmitBtn,
 } from "./PostElements";
+import Axios from "axios";
 
 const PostService = () => {
+  const [navMenu, setNavMenu] = useState([]);
+  const [serviceData, setServiceData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    subcategory: "",
+    house: "",
+    street: "",
+    area: "",
+    city: "",
+    state: "",
+    pincode: "",
+  });
+
+  const handleChange = (e) =>
+    setServiceData({ ...serviceData, [e.target.name]: e.target.value });
+
+  // find category for submenu
+  const subCategory = navMenu.find((nav) => nav.menu === serviceData.category);
+
+  const handlePostService = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await Axios.post("http://localhost:4000/api/post/service", {
+        ...serviceData,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const getmenu = async () => {
+      const res = await Axios.get("http://127.0.0.1:4000/api/navmenu");
+      setNavMenu(res.data);
+    };
+    getmenu();
+  }, []);
+
   return (
     <>
+      {/* About your service section */}
       <AdHeading>
         <AdTitle>Post your service</AdTitle>
       </AdHeading>
       <FormSection>
-        <form>
+        <form onSubmit={handlePostService}>
           <FormHeading>About your service</FormHeading>
           <FormRow>
-            <Label>
+            <Label htmlFor='title'>
               Company Name<Star>*</Star>
             </Label>
-            <Input type='text' />
+            <Input
+              type='text'
+              id='title'
+              name='title'
+              value={serviceData.title}
+              onChange={handleChange}
+              required
+            />
           </FormRow>
           <FormRow>
-            <Label>
+            <Label htmlFor='description'>
               Description<Star>*</Star>
             </Label>
-            <Textarea></Textarea>
+            <Textarea
+              id='description'
+              name='description'
+              value={serviceData.description}
+              onChange={handleChange}
+              required
+            ></Textarea>
           </FormRow>
+          <SplitRow>
+            <FormRow>
+              <Label htmlFor='category'>
+                Category<Star>*</Star>
+              </Label>
+              <SelectList
+                id='category'
+                name='category'
+                onChange={handleChange}
+                required
+              >
+                <option value=''>Select Category</option>
+                {navMenu.map((nav, indx) =>
+                  nav.menu ? (
+                    <option key={indx} value={nav.menu}>
+                      {nav.menu}
+                    </option>
+                  ) : null
+                )}
+              </SelectList>
+            </FormRow>
+            <FormRow>
+              {subCategory && subCategory.submenu.length > 0 ? (
+                <>
+                  <Label htmlFor='subcategory'>
+                    Sub Category<Star>*</Star>
+                  </Label>
+                  <SelectList
+                    id='subcategory'
+                    name='subcategory'
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value=''>Select Category</option>
+                    {subCategory.submenu.map((menu, indx) => (
+                      <option key={indx} value={menu.title}>
+                        {menu.title}
+                      </option>
+                    ))}
+                  </SelectList>
+                </>
+              ) : null}
+            </FormRow>
+          </SplitRow>
+          {/* Address section */}
           <FormHeading>Address</FormHeading>
           <SplitRow>
             <FormRow>
-              <Label>Plot no</Label>
-              <Input type='text' />
+              <Label htmlFor='house'>Plot no</Label>
+              <Input
+                type='text'
+                id='house'
+                name='house'
+                value={serviceData.house}
+                onChange={handleChange}
+              />
             </FormRow>
             <FormRow>
-              <Label>
+              <Label htmlFor='street'>
                 Street<Star>*</Star>
               </Label>
-              <Input type='text' />
+              <Input
+                type='text'
+                id='street'
+                name='street'
+                value={serviceData.street}
+                onChange={handleChange}
+                required
+              />
             </FormRow>
           </SplitRow>
           <SplitRow>
             <FormRow>
-              <Label>
+              <Label htmlFor='area'>
                 Area<Star>*</Star>
               </Label>
-              <Input type='text' />
+              <Input
+                type='text'
+                id='area'
+                name='area'
+                value={serviceData.area}
+                onChange={handleChange}
+                required
+              />
             </FormRow>
             <FormRow>
-              <Label>
+              <Label htmlFor='city'>
                 City<Star>*</Star>
               </Label>
-              <Input type='text' />
+              <Input
+                type='text'
+                id='city'
+                name='city'
+                value={serviceData.city}
+                onChange={handleChange}
+                required
+              />
             </FormRow>
           </SplitRow>
           <SplitRow>
             <FormRow>
-              <Label>
+              <Label htmlFor='state'>
                 State<Star>*</Star>
               </Label>
-              <Input type='text' />
+              <Input
+                type='text'
+                id='state'
+                name='state'
+                value={serviceData.state}
+                onChange={handleChange}
+                required
+              />
             </FormRow>
             <FormRow>
-              <Label>
+              <Label htmlFor='pincode'>
                 Pincode<Star>*</Star>
               </Label>
-              <Input type='text' />
+              <Input
+                type='text'
+                id='pincode'
+                name='pincode'
+                value={serviceData.pincode}
+                onChange={handleChange}
+                required
+              />
             </FormRow>
           </SplitRow>
-          <FormRow>
-            <Label>
-              Country<Star>*</Star>
-            </Label>
-            <Input type='text' style={{ width: "30%" }} />
-          </FormRow>
           <FormRow>
             <SubmitBtn type='submit'>Submit</SubmitBtn>
           </FormRow>

@@ -84,7 +84,7 @@ export const sidemenu = [
   },
   {
     title: "Shopping mall",
-    path: "/shopping",
+    path: "/shopping-malls",
     icon: <Ai.AiOutlineShoppingCart />,
   },
   {

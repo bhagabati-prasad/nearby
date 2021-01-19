@@ -33,7 +33,29 @@ export const List = styled.li`
   text-align: left;
 `;
 
-// export const SidebarLink = styled.p`
+export const SidebarMenu = styled.div`
+  color: #222;
+  background: ${({ subnav }) => (subnav ? "#fff" : "#444")};
+  text-decoration: none;
+  font-size: 1.6rem;
+  padding: 1.8rem 1.4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  text-transform: capitalize;
+  position: relative;
+  border-bottom: 0.2px solid #ebebeb;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background: #333;
+  }
+`;
+
 export const SidebarLink = styled(Link)`
   color: #222;
   background: ${({ subnav }) => (subnav ? "#fff" : "#444")};
@@ -59,7 +81,7 @@ export const SidebarLink = styled(Link)`
 
 export const DropdownLink = styled(SidebarLink)`
   padding-left: 3rem;
-  background: #ddd;
+  background: #ececec;
   justify-content: flex-start;
   span {
     padding-left: 1.2rem;

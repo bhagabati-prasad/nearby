@@ -5,6 +5,13 @@ const itemSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
+  category: {
+    type: String,
+    required: true,
+  },
+  subcategory: {
+    type: String,
+  },
   title: {
     type: String,
     required: [true, "Title is required"],
@@ -47,12 +54,9 @@ const itemSchema = new mongoose.Schema({
   userInfo: {
     name: {
       type: String,
-      // required: [true, "Name is required"],
     },
     phone: {
       type: Number,
-      // required: [true, "Phone number is required"],
-      // maxlength: 15,
     },
     altPhone: {
       type: String,

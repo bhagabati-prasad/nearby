@@ -25,7 +25,6 @@ const PostRent = () => {
     city: "",
     state: "",
     pincode: "",
-    country: "",
   });
 
   const handleChange = (e) =>
@@ -61,6 +60,7 @@ const PostRent = () => {
               name='title'
               value={rentData.title}
               onChange={handleChange}
+              required
             />
           </FormRow>
           <FormRow>
@@ -72,6 +72,7 @@ const PostRent = () => {
               name='description'
               value={rentData.description}
               onChange={handleChange}
+              required
             ></Textarea>
           </FormRow>
           <FormRow>
@@ -85,6 +86,7 @@ const PostRent = () => {
               name='price'
               value={rentData.price}
               onChange={handleChange}
+              required
             />
           </FormRow>
           <FormHeading>Address</FormHeading>
@@ -99,6 +101,7 @@ const PostRent = () => {
                 name='house'
                 value={rentData.house}
                 onChange={handleChange}
+                required
               />
             </FormRow>
             <FormRow>
@@ -123,6 +126,7 @@ const PostRent = () => {
                 name='area'
                 value={rentData.area}
                 onChange={handleChange}
+                required
               />
             </FormRow>
             <FormRow>
@@ -135,6 +139,7 @@ const PostRent = () => {
                 name='city'
                 value={rentData.city}
                 onChange={handleChange}
+                required
               />
             </FormRow>
           </SplitRow>
@@ -149,6 +154,7 @@ const PostRent = () => {
                 name='state'
                 value={rentData.state}
                 onChange={handleChange}
+                required
               />
             </FormRow>
             <FormRow>
@@ -161,22 +167,10 @@ const PostRent = () => {
                 name='pincode'
                 value={rentData.pincode}
                 onChange={handleChange}
+                required
               />
             </FormRow>
           </SplitRow>
-          <FormRow>
-            <Label htmlFor='country'>
-              Country<Star>*</Star>
-            </Label>
-            <Input
-              type='text'
-              style={{ width: "30%" }}
-              id='country'
-              name='country'
-              value={rentData.country}
-              onChange={handleChange}
-            />
-          </FormRow>
           <FormRow>
             <SubmitBtn type='submit'>Submit</SubmitBtn>
           </FormRow>

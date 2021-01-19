@@ -1,5 +1,5 @@
 import { Aside, LinkContainer } from "./HomeElements";
-import { sidemenu } from "./sidebarmenu";
+import { sidemenu } from "../sidebarmenu";
 import SubMenu from "./SubMenu";
 
 const Sidebar = () => {

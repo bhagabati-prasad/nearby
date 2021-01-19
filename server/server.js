@@ -9,7 +9,7 @@ const loginRoutes = require("./routes/loginRoutes");
 const signupRoutes = require("./routes/signupRoutes");
 const logoutRoutes = require("./routes/logoutRoutes");
 const postAdRoutes = require("./routes/postAdRoutes");
-
+const Navmenu = require("./models/Navmenu");
 // load env vars
 dotenv.config();
 
@@ -37,6 +37,11 @@ app.use("/api/login", loginRoutes);
 app.use("/api/signup", signupRoutes);
 app.use("/api/logout", logoutRoutes);
 app.use("/api/post", postAdRoutes);
+
+app.get("/api/navmenu", async (req, res) => {
+  const navmenu = await Navmenu.find();
+  res.json(navmenu);
+});
 
 app.get("*", (req, res) => {
   res.send("Nothing is here!");

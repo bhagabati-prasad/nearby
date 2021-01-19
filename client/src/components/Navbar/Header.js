@@ -20,7 +20,6 @@ import { UserContext } from "../Context/UserContext";
 const Header = () => {
   // get user from context
   const { user, setUser } = useContext(UserContext);
-  console.log("header ", user);
 
   const [location, setLocation] = useState({
     pincode: 751019,

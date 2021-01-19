@@ -41,15 +41,14 @@ export const FormRow = styled.div`
   margin: 1.4rem 0;
   margin-right: 1.4rem;
 `;
-export const Star = styled.span`
-  color: #f00;
-`;
 
 export const Label = styled.label`
   display: block;
   font-size: 1.6rem;
-
   margin-bottom: 0.5rem;
+`;
+export const Star = styled.span`
+  color: #f00;
 `;
 
 export const Input = styled.input`
@@ -89,6 +88,23 @@ export const Textarea = styled.textarea`
   }
   &:focus {
     border: 1.4px solid #1e90ff;
+  }
+`;
+
+export const SelectList = styled.select`
+  width: 100%;
+  height: 3.4rem;
+  border-radius: 0.3rem;
+  background: #eee;
+  outline: none;
+  border: 1.4px solid #999;
+  color: #555;
+  font-size: 1.58rem;
+  letter-spacing: 0.5px;
+  padding: 0 1.2rem;
+  transition: border 0.24s;
+  &:hover {
+    border: 1.4px solid #222;
   }
 `;
 
