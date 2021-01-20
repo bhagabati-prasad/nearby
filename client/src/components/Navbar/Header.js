@@ -30,17 +30,16 @@ const Header = () => {
     setLocation({ ...location, [e.target.name]: e.target.value });
 
   const logoutThis = () => {
-    Axios.get("http://localhost:4000/api/logout/this").then((res) =>
-      setUser({ ...res.data })
-    );
+    Axios.post("http://localhost:4000/api/logout/this", null, {
+      headers: { "x-access-token": user.token },
+    }).then((res) => setUser({ ...res.data }));
   };
   const logoutAll = () => {
-    Axios.get("http://localhost:4000/api/logout/all").then((res) =>
-      setUser({ ...res.data })
-    );
+    Axios.post("http://localhost:4000/api/logout/all", null, {
+      headers: { "x-access-token": user.token },
+    }).then((res) => setUser({ ...res.data }));
   };
 
-  console.log(user);
   return (
     <>
       <HeaderNav>

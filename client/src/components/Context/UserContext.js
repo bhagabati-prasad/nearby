@@ -7,20 +7,37 @@ export const UserProvider = (props) => {
   const [user, setUser] = useState({
     isLoggedIn: false,
     userData: undefined,
+    token: undefined,
   });
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const res = await Axios.get("http://localhost:4000/api/login");
-      if (res.status == 200) {
+      let token = localStorage.getItem("auth-token");
+      console.log("auth efect", token);
+      if (token === null || token === undefined) {
+        localStorage.setItem("auth-token", "");
+        token = "";
+      }
+      const res = await Axios.post(
+        "http://localhost:4000/api/login/isLoggedIn",
+        null,
+        {
+          headers: { "x-access-token": token },
+        }
+      );
+      if (res.data) {
+        console.log(res.data);
         setUser({
           isLoggedIn: res.data.isLoggedIn,
           userData: res.data.user,
+          token: res.data.token,
         });
       }
     };
     checkLoggedIn();
   }, []);
+
+  console.log(user);
 
   return (
     <>

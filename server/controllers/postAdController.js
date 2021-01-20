@@ -5,7 +5,9 @@ module.exports.rentAdPost = async (req, res) => {
   try {
     // console.log({ ...req.body });
     const createRentAd = new Item({
+      userId: req.userId,
       category: "rent",
+      subcategory: undefined,
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
@@ -33,6 +35,7 @@ module.exports.rentAdPost = async (req, res) => {
 module.exports.serviceAdPost = async (req, res) => {
   try {
     const createServiceAd = new Item({
+      userId: req.userId,
       category: req.body.category,
       subcategory: req.body.subcategory,
       title: req.body.title,

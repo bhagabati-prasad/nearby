@@ -1,9 +1,15 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
-// @route GET /api/login
-module.exports.loginGet = (req, res) => {
-  res.json({ isLoggedIn: true, user: req.user });
+// @route POST /api/login/isLoggedIn
+module.exports.isLoggedIn = (req, res) => {
+  // const token = req.headers["x-access-token"];
+  // console.log(token);
+  res.json({
+    isLoggedIn: req.isLoggedIn,
+    user: req.user,
+    token: req.userToken,
+  });
 };
 
 // @route POST /api/login
@@ -14,15 +20,9 @@ module.exports.loginPost = async (req, res) => {
     if (userRes) {
       const isMatched = await bcrypt.compare(password, userRes.password);
       if (isMatched) {
-        // create token
-        const token = await userRes.generateToken();
-        res.cookie("user", token, {
-          maxAge: 60 * 60 * 24 * 1000,
-          httpOnly: true,
-        });
-        // secure: false,
         console.log(userRes);
-        res.status(200).json({ isLoggedIn: true, user: userRes });
+        const token = await userRes.generateToken();
+        res.status(200).json({ isLoggedIn: true, user: userRes, token });
       } else {
         console.log("password error");
         res.send({ message: "password error" });
@@ -33,6 +33,6 @@ module.exports.loginPost = async (req, res) => {
     }
   } catch (error) {
     console.log("error: ", error);
-    res.json({ error });
+    res.status(500).json({ error });
   }
 };

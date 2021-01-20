@@ -9,13 +9,13 @@ import {
   Input,
 } from "./regElements";
 import LoginBg from "../../image/write-note.jpg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 
 const Login = () => {
+  const history = useHistory();
   // set user from context
   const { setUser } = useContext(UserContext);
-
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -32,7 +32,12 @@ const Login = () => {
       const res = await Axios.post("http://localhost:4000/api/login", {
         ...login,
       });
-      setUser({ ...res.data });
+      console.log(res);
+      if (res.status === 200) {
+        setUser({ ...res.data });
+        localStorage.setItem("auth-token", res.data.token);
+        // history.push("/");
+      }
     } catch (error) {
       console.error(error);
     }

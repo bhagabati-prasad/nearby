@@ -13,16 +13,10 @@ module.exports.signupPost = async (req, res) => {
 
     // create token
     const token = await registerUser.generateToken();
-    // set token in cookie
-    res.cookie("user", token, {
-      maxAge: 60 * 60 * 24 * 1000,
-      httpOnly: true,
-    });
-    // secure: false,
     // create new user
     const registeredUser = await registerUser.save();
     console.log("user registered ", registeredUser);
-    res.status(200).json({ isLoggedIn: true, user: registeredUser });
+    res.status(200).json({ isLoggedIn: true, user: registeredUser, token });
   } catch (error) {
     console.log(error);
     res.json({ error });
