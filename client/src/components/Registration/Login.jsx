@@ -20,6 +20,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const { email, password } = login;
 
   const handleChange = (e) =>
@@ -36,7 +37,7 @@ const Login = () => {
       if (res.status === 200) {
         setUser({ ...res.data });
         localStorage.setItem("auth-token", res.data.token);
-        // history.push("/");
+        history.push("/");
       }
     } catch (error) {
       console.error(error);

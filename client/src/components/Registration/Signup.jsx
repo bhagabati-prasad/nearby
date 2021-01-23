@@ -8,11 +8,12 @@ import {
   FormField,
   Input,
 } from "./regElements";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SignupBg from "../../image/writing.jpg";
 import { UserContext } from "../Context/UserContext";
 
 const Signup = () => {
+  const history = useHistory();
   // set user from context
   const { setUser } = useContext(UserContext);
   const [term, setTerm] = useState(false);
@@ -33,6 +34,7 @@ const Signup = () => {
     conPasswordErr: "",
     termErr: "",
   });
+
   const { fname, lname, email, phone, password, conPassword } = signup;
   const {
     fnameErr,
@@ -58,6 +60,8 @@ const Signup = () => {
           });
           console.log(res);
           setUser({ ...res.data });
+          localStorage.setItem("auth-token", res.data.token);
+          history.push("/");
         } else {
           setErrors({ ...errors, conPasswordErr: "Password didn't matched." });
         }
@@ -68,6 +72,7 @@ const Signup = () => {
       console.error(error);
     }
   };
+
   return (
     <>
       <Center>

@@ -32,12 +32,18 @@ const Header = () => {
   const logoutThis = () => {
     Axios.post("http://localhost:4000/api/logout/this", null, {
       headers: { "x-access-token": user.token },
-    }).then((res) => setUser({ ...res.data }));
+    }).then((res) => {
+      setUser({ ...res.data });
+      localStorage.setItem("auth-token", "");
+    });
   };
   const logoutAll = () => {
     Axios.post("http://localhost:4000/api/logout/all", null, {
       headers: { "x-access-token": user.token },
-    }).then((res) => setUser({ ...res.data }));
+    }).then((res) => {
+      setUser({ ...res.data });
+      localStorage.setItem("auth-token", "");
+    });
   };
 
   return (

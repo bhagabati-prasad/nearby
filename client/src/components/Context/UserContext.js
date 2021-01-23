@@ -13,7 +13,6 @@ export const UserProvider = (props) => {
   useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token");
-      console.log("auth efect", token);
       if (token === null || token === undefined) {
         localStorage.setItem("auth-token", "");
         token = "";
@@ -26,7 +25,6 @@ export const UserProvider = (props) => {
         }
       );
       if (res.data) {
-        console.log(res.data);
         setUser({
           isLoggedIn: res.data.isLoggedIn,
           userData: res.data.user,
@@ -36,8 +34,6 @@ export const UserProvider = (props) => {
     };
     checkLoggedIn();
   }, []);
-
-  console.log(user);
 
   return (
     <>

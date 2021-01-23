@@ -1,5 +1,13 @@
-import { Route, Switch, NavLink, useLocation } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import {
+  Route,
+  Switch,
+  NavLink,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../Context/UserContext";
 import FavouriteSection from "./FavouriteSection";
 import ProfileInfo from "./Profile";
 import PostedAds from "./PostedAds";
@@ -43,11 +51,13 @@ const Fav_PostAdSection = styled.div`
 `;
 
 const Profile = ({ match }) => {
+  const { user } = useContext(UserContext);
   const location = useLocation().pathname;
+
   return (
     <>
       <Main>
-        <ProfileInfo />
+        <ProfileInfo userInfo={user.userData} path={match.url} />
         {/* Link section row */}
         <LinkSection>
           <MenuLink

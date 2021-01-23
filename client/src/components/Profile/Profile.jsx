@@ -77,8 +77,11 @@ const Span = styled.span`
   /* display: block; */
 `;
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ userInfo, path }) => {
+  console.log(userInfo);
   const currentUrl = useLocation();
+  console.log(currentUrl);
+
   return (
     <>
       <div className='d-flex bg-white rounded shadow-sm p-5'>
@@ -86,14 +89,14 @@ const ProfileInfo = () => {
           <ProfilePicDiv>
             <ProfileImg src={userPic} alt='profile pic' />
           </ProfilePicDiv>
-          <EditProfileBtn to={`${currentUrl.pathname}/edit`}>
-            Edit Profile
-          </EditProfileBtn>
+          <EditProfileBtn to={`${path}/edit`}>Edit Profile</EditProfileBtn>
         </ProfilePicContainer>
         <UserInfoDiv>
-          <UserName>Aleph Naught</UserName>
-          <UserInfo>aleph@email.com</UserInfo>
-          <UserInfo>+91 123 456 7890</UserInfo>
+          <UserName>
+            {userInfo && userInfo.firstName} {userInfo && userInfo.lastName}
+          </UserName>
+          <UserInfo>{userInfo && userInfo.email}</UserInfo>
+          <UserInfo>{userInfo && `${userInfo.phone}`}</UserInfo>
           <hr />
           <UserInfo>
             <Span>D-107,</Span>

@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
@@ -12,6 +11,7 @@ import ViewAllItems from "./components/ViewItem/ViewAllItems";
 import Login from "./components/Registration/Login";
 import Signup from "./components/Registration/Signup";
 import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 import Post from "./components/Post";
 // context provider
 import { UserProvider } from "./components/Context/UserContext";
@@ -28,22 +28,17 @@ function App() {
                 <Route exact path='/' component={Homepage} />
                 <Route exact path='/about' component={About} />
                 <Route exact path='/contact' component={Contact} />
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/signup' component={Signup} />
                 <Route exact path='/category/:categ' component={ViewAllItems} />
-
-                <Route path='/post' component={Post} />
-
                 <Route
                   exact
                   path='/category/:categ/item/:id'
                   component={SignleItemDetails}
                 />
-                <Route
-                  exact
-                  path='/user/profile/edit'
-                  render={() => <h1>Edit profile</h1>}
-                />
+                {/* ---- Protected Routes ---- */}
+                <Route path='/post' component={Post} />
+                <Route exact path='/login' component={Login} />
+                <Route exact path='/signup' component={Signup} />
+                <Route exact path='/user/profile/edit' render={EditProfile} />
                 <Route path='/user/profile' component={Profile} />
 
                 <Route render={() => <h1>Sorry, nothing is here!</h1>} />
