@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BiRupee } from "react-icons/bi";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { MdFavoriteBorder } from "react-icons/md";
 
 const AdContainer = styled.div`
   background-color: #f8f9fa;
   border-radius: 0.4rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  margin: 0.5rem 0;
+  border: 1px solid #f8f9fa;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+  margin: 1rem 0;
   overflow: hidden;
+  transition: 0.24s;
+  &:hover {
+    border: 1px solid #ccc;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+  }
 `;
 
 const AdBody = styled.div`
@@ -72,13 +79,13 @@ const FavIconBtn = styled(ViewBtn)`
   font-size: 1.8rem;
 `;
 
-const CardItem = ({ category, itemProps }) => {
+const CardItem = ({ itemProps }) => {
   return (
-    <div className='col-md-4 p-4'>
+    <>
       <AdContainer>
         {/* Slider Image section */}
         <img
-          src={`https://source.unsplash.com/400x230/?${category}`}
+          src={`https://source.unsplash.com/400x230/?${itemProps.category}`}
           className='img-fluid'
           alt='ad image'
         />
@@ -88,12 +95,12 @@ const CardItem = ({ category, itemProps }) => {
             <BiRupee />
             {itemProps.price}
           </AdPrice>
-          <AdShortDesc>{itemProps.shortDesc.slice(0, 90)}...</AdShortDesc>
+          <AdShortDesc>{itemProps.description}</AdShortDesc>
           <div className='d-flex align-items-center justify-content-end'>
             <ViewBtn
               target='_blank'
               rel='noopener'
-              to={`${itemProps.category}/${itemProps.id}`}
+              to={`/category/${itemProps.category}/item/${itemProps.id}`}
             >
               View
             </ViewBtn>
@@ -104,7 +111,7 @@ const CardItem = ({ category, itemProps }) => {
           </div>
         </AdBody>
       </AdContainer>
-    </div>
+    </>
   );
 };
 

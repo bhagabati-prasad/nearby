@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Navbar from "./components/Navbar";
@@ -13,13 +15,44 @@ import Signup from "./components/Registration/Signup";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import Post from "./components/Post";
-// context provider
-import { UserProvider } from "./components/Context/UserContext";
+// user context
+import { UserContext } from "./components/Context/UserContext";
 
 function App() {
+  const [user, setUser] = useState({
+    isLoggedIn: false,
+    userData: undefined,
+    token: undefined,
+  });
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem("auth-token");
+      if (token === null || token === undefined) {
+        localStorage.setItem("auth-token", "");
+        token = "";
+      }
+      const res = await Axios.post(
+        "http://localhost:4000/api/login/isLoggedIn",
+        null,
+        {
+          headers: { "x-access-token": token },
+        }
+      );
+      if (res.data) {
+        setUser({
+          isLoggedIn: res.data.isLoggedIn,
+          userData: res.data.user,
+          token: res.data.token,
+        });
+      }
+    };
+    checkLoggedIn();
+  }, []);
+
   return (
     <Router>
-      <UserProvider>
+      <UserContext.Provider value={{ user, setUser }}>
         <Container fluid>
           <Row>
             <Col xl={10} lg={11} md={12} sm={12} className='mx-auto'>
@@ -47,7 +80,7 @@ function App() {
             </Col>
           </Row>
         </Container>
-      </UserProvider>
+      </UserContext.Provider>
     </Router>
   );
 }

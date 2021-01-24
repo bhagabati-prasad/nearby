@@ -13,9 +13,9 @@ const auth = async (req, res, next) => {
       } else {
         const user = await User.findOne({ _id: decoded._id });
         req.isLoggedIn = true;
+        req.userId = user._id;
         req.user = user;
         req.userToken = reqToken;
-        req.userId = user._id;
         next();
       }
     }

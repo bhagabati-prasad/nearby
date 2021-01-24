@@ -64,25 +64,25 @@ const Profile = ({ match }) => {
             to={`${match.url}`}
             style={location === `${match.url}` ? { color: "#111" } : {}}
           >
-            Favourites
+            Posted Ads
           </MenuLink>
           <MenuLink
-            to={`${match.url}/posted-ad`}
+            to={`${match.url}/favourites`}
             style={
-              location === `${match.url}/posted-ad` ? { color: "#111" } : {}
+              location === `${match.url}/favourites` ? { color: "#111" } : {}
             }
           >
-            Posted Ads
+            Favourites
           </MenuLink>
         </LinkSection>
         {/* Routing section */}
         <Fav_PostAdSection>
           <Switch>
-            <Route exact path={`${match.path}`} component={FavouriteSection} />
+            <Route exact path={`${match.path}`} component={PostedAds} />
             <Route
               exact
-              path={`${match.path}/posted-ad`}
-              component={PostedAds}
+              path={`${match.path}/favourites`}
+              component={FavouriteSection}
             />
           </Switch>
         </Fav_PostAdSection>

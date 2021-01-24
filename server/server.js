@@ -10,16 +10,15 @@ const signupRoutes = require("./routes/signupRoutes");
 const logoutRoutes = require("./routes/logoutRoutes");
 const postAdRoutes = require("./routes/postAdRoutes");
 const Navmenu = require("./models/Navmenu");
-const User = require("./models/User");
+const userRoutes = require("./routes/userRoutes");
+const itemRoutes = require("./routes/itemRoutes");
+
 // load env vars
 dotenv.config();
 
 // enable cors
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "https://geolocation-db.com",
-  ],
+  origin: "*",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true,
 };
@@ -40,21 +39,14 @@ app.get("/", (req, res) => {
 app.use("/api/login", loginRoutes);
 app.use("/api/signup", signupRoutes);
 app.use("/api/logout", logoutRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/post", postAdRoutes);
+app.use("/api/items", itemRoutes);
 
 app.get("/api/navmenu", async (req, res) => {
   const navmenu = await Navmenu.find();
   res.json(navmenu);
 });
-
-// app.delete("/api/delete", auth, async (req, res) => {
-//   try {
-//     const deleteUser = await User.findOneAndDelete(req.userId);
-//     res.send(deleteUser);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
 
 app.get("*", (req, res) => {
   res.send("Nothing is here!");

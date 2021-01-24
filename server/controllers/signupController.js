@@ -19,6 +19,6 @@ module.exports.signupPost = async (req, res) => {
     res.status(200).json({ isLoggedIn: true, user: registeredUser, token });
   } catch (error) {
     console.log(error);
-    res.json({ error });
+    res.status(400).json({ error });
   }
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import userPic from "../../image/user.jpg";
 
 // Profile Pic section - Left
@@ -8,6 +8,7 @@ const ProfilePicContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 250px;
 `;
 const ProfilePicDiv = styled.div`
   height: 15.3rem;
@@ -62,7 +63,7 @@ const UserInfoDiv = styled.div`
 `;
 const UserName = styled.p`
   color: #666;
-  font-size: 3rem;
+  font-size: 2.4rem;
   font-weight: 400;
   font-family: sans-serif;
   letter-spacing: 0.6px;
@@ -72,16 +73,22 @@ const UserInfo = styled.p`
   font-size: 1.7rem;
   line-height: 3rem;
 `;
-const Span = styled.span`
-  margin-right: 0.6rem;
-  /* display: block; */
+
+const Title = styled.span`
+  text-transform: capitalize;
+  font-size: 17px;
+  line-height: 20px;
+  color: #444;
+  margin-right: 1rem;
+`;
+const Value = styled(Title)`
+  padding: 4px 7px;
+  color: #111;
+  background-color: #eee;
+  border-radius: 4px;
 `;
 
 const ProfileInfo = ({ userInfo, path }) => {
-  console.log(userInfo);
-  const currentUrl = useLocation();
-  console.log(currentUrl);
-
   return (
     <>
       <div className='d-flex bg-white rounded shadow-sm p-5'>
@@ -98,14 +105,14 @@ const ProfileInfo = ({ userInfo, path }) => {
           <UserInfo>{userInfo && userInfo.email}</UserInfo>
           <UserInfo>{userInfo && `${userInfo.phone}`}</UserInfo>
           <hr />
-          <UserInfo>
-            <Span>D-107,</Span>
-            <Span>H.B Colony,</Span>
-            <Span>Khandagiri,</Span>
-            <Span>Las Vegas,</Span>
-            <Span>482910,</Span>
-            <Span>USA</Span>
-          </UserInfo>
+          <h1>Address</h1>
+          {userInfo &&
+            Object.keys(userInfo.address).map((user, indx) => (
+              <div key={indx} style={{ margin: "1.2rem 0" }}>
+                <Title>{user}:</Title>
+                <Value>{userInfo.address[user]}</Value>
+              </div>
+            ))}
         </UserInfoDiv>
       </div>
     </>
