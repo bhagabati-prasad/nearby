@@ -11,7 +11,7 @@ import {
   SubmitBtn,
 } from "../Post/PostElements";
 
-const Heading = styled.h2`
+export const Heading = styled.h2`
   color: #444;
   font: bold 1.7rem arial;
   text-transform: uppercase;
@@ -47,7 +47,6 @@ const UdateInfo = () => {
   });
 
   useEffect(() => {
-    console.log("effect");
     setInfo({
       fname: user?.userData?.firstName,
       lname: user?.userData?.lastName,
@@ -56,12 +55,12 @@ const UdateInfo = () => {
       altPhone: user?.userData?.altPhone,
     });
     setAddress({
-      house: user?.userData?.house,
-      street: user?.userData?.street,
-      area: user?.userData?.area,
-      city: user?.userData?.city,
-      state: user?.userData?.state,
-      pincode: user?.userData?.pincode,
+      house: user?.userData?.address?.house,
+      street: user?.userData?.address?.street,
+      area: user?.userData?.address?.area,
+      city: user?.userData?.address?.city,
+      state: user?.userData?.address?.state,
+      pincode: user?.userData?.address?.pincode,
     });
   }, [user]);
 
@@ -75,7 +74,7 @@ const UdateInfo = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     const res = await Axios.patch(
-      "http://localhost:4000/api/user/update",
+      "http://localhost:4000/api/user/update/info",
       { info, address },
       {
         headers: { "user-id": user.userData._id },

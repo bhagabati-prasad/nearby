@@ -18,7 +18,7 @@ dotenv.config();
 
 // enable cors
 const corsOptions = {
-  origin: "*",
+  origin: ["http://localhost:3000"],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true,
 };
@@ -28,8 +28,8 @@ app.use(cors(corsOptions));
 connectDB();
 
 // use middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
 // routing
@@ -45,7 +45,7 @@ app.use("/api/items", itemRoutes);
 
 app.get("/api/navmenu", async (req, res) => {
   const navmenu = await Navmenu.find();
-  res.json(navmenu);
+  res.send(navmenu);
 });
 
 app.get("*", (req, res) => {

@@ -15,8 +15,13 @@ module.exports.updateUser = async (req, res) => {
 
 module.exports.deleteUser = async (req, res) => {
   try {
-    const deleteUser = await User.findByIdAndDelete(req.userId);
-    res.json({ status: true, deleteUser });
+    // find user by id
+    let user = await User.findById(req.params.id);
+    //delete image from cloudinry
+    await cloudinary.uploader.destroy(user.cloudinary_id);
+    // delete user
+    await user.remove();
+    res.json({ status: true, user });
   } catch (error) {
     res.status(500).send(error);
   }

@@ -8,7 +8,7 @@ const AdContainer = styled.div`
   border-radius: 0.4rem;
   border: 1px solid #f8f9fa;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
-  margin: 1rem 0;
+  margin: 1rem 0 1.4rem 0;
   overflow: hidden;
   transition: 0.24s;
   &:hover {
@@ -37,6 +37,7 @@ const AdPrice = styled.h3`
   display: flex;
   align-items: center;
   margin-bottom: 0;
+  margin-left: -5px;
   svg {
     font-size: 2.2rem;
   }
@@ -90,17 +91,17 @@ const CardItem = ({ itemProps }) => {
           alt='ad image'
         />
         <AdBody>
-          <AdTitle>{itemProps.title}</AdTitle>
           <AdPrice>
             <BiRupee />
             {itemProps.price}
           </AdPrice>
+          <AdTitle>{itemProps.title}</AdTitle>
           <AdShortDesc>{itemProps.description}</AdShortDesc>
           <div className='d-flex align-items-center justify-content-end'>
             <ViewBtn
               target='_blank'
               rel='noopener'
-              to={`/category/${itemProps.category}/item/${itemProps.id}`}
+              to={`/category/${itemProps.category}/item/${itemProps._id}`}
             >
               View
             </ViewBtn>

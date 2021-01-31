@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import userPic from "../../image/user.jpg";
+import { Initials } from "../EditProfile/UpdatePicture";
 
 // Profile Pic section - Left
 const ProfilePicContainer = styled.div`
@@ -36,6 +36,7 @@ const ProfileImg = styled.img`
   left: 0;
   top: 0;
 `;
+
 const EditProfileBtn = styled(Link)`
   height: 3.4rem;
   width: 12rem;
@@ -94,7 +95,11 @@ const ProfileInfo = ({ userInfo, path }) => {
       <div className='d-flex bg-white rounded shadow-sm p-5'>
         <ProfilePicContainer>
           <ProfilePicDiv>
-            <ProfileImg src={userPic} alt='profile pic' />
+            {userInfo?.avatar ? (
+              <ProfileImg src={userInfo?.avatar} alt='profile pic' />
+            ) : (
+              <Initials>{userInfo?.firstName.slice(0, 1)}</Initials>
+            )}
           </ProfilePicDiv>
           <EditProfileBtn to={`${path}/edit`}>Edit Profile</EditProfileBtn>
         </ProfilePicContainer>

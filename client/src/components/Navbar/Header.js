@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import {
   HeaderNav,
@@ -14,20 +14,28 @@ import {
   RegisterBtn,
   PostAdBtn,
 } from "./NavbarElements";
+import { useHistory } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import { UserContext } from "../Context/UserContext";
+import { LocationContext } from "../Context/LocationContext";
 
 const Header = () => {
+  const history = useHistory();
   // get user from context
   const { user, setUser } = useContext(UserContext);
+  const { location } = useContext(LocationContext);
 
-  const [location, setLocation] = useState({
-    pincode: 751019,
-    area: "Khandagiri, Bhubaneswar, Odisha, In",
+  const [loc, setLoc] = useState({
+    pincode: "",
+    area: "",
   });
 
   const handleChange = (e) =>
-    setLocation({ ...location, [e.target.name]: e.target.value });
+    setLoc({ ...loc, [e.target.name]: e.target.value });
+  const handleSubmitLocation = (e) => {
+    e.preventDefault();
+    console.log(loc);
+  };
 
   const logoutThis = () => {
     Axios.post("http://localhost:4000/api/logout/this", null, {
@@ -35,6 +43,7 @@ const Header = () => {
     }).then((res) => {
       setUser({ ...res.data });
       localStorage.setItem("auth-token", "");
+      history.push("/");
     });
   };
   const logoutAll = () => {
@@ -43,8 +52,18 @@ const Header = () => {
     }).then((res) => {
       setUser({ ...res.data });
       localStorage.setItem("auth-token", "");
+      history.push("/");
     });
   };
+
+  useEffect(() => {
+    setLoc({
+      pincode: location && location.pincode,
+      area:
+        location &&
+        `${location.city}, ${location.state}, ${location.country_code}`,
+    });
+  }, [location]);
 
   return (
     <>
@@ -53,15 +72,15 @@ const Header = () => {
           {/* ------- */}
           <NavLogo to='/'>Nearby</NavLogo>
           {/* ------- */}
-          <SearchForm>
+          <SearchForm onSubmit={handleSubmitLocation}>
             <SearchPincodeInput
               name='pincode'
-              value={location.pincode}
+              value={loc.pincode}
               onChange={handleChange}
             />
             <SearchAreaInput
               name='area'
-              value={location.area}
+              value={loc.area}
               onChange={handleChange}
             />
             <SearchBtn>Search</SearchBtn>

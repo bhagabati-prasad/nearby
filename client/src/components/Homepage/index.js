@@ -1,13 +1,28 @@
+import { useContext, useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import HomeContents from "./HomeSidebarMap";
-import RentSection from "./sections/RentSection";
-import HealthSection from "./sections/HealthSection";
+import CategorySection from "./CategorySection";
+// context
+import { ItemContext } from "../Context/ItemContext";
+import { LocationContext } from "../Context/LocationContext";
 
 const Homepage = () => {
+  const { items } = useContext(ItemContext);
+  const { location } = useContext(LocationContext);
+
+  const [filteredItems, setFilteredItems] = useState(null);
+
+  useEffect(() => {
+    // items && items.filter((item) => item.address.city.toLowerCase() === location.city.toLowerCase());
+    const filtered =
+      items && items.filter((item) => item.address.city.toLowerCase() === "la");
+    setFilteredItems(filtered);
+  }, [items]);
+  console.log(filteredItems);
+
   return (
     <>
-      {/* Main Contents */}
       <Row>
         <div className='col-md-3 pl-0'>
           <Sidebar />
@@ -17,8 +32,11 @@ const Homepage = () => {
         </div>
       </Row>
 
-      <RentSection />
-      <HealthSection />
+      <CategorySection
+        heading='Available rooms for rent'
+        items={filteredItems}
+        show='6'
+      />
     </>
   );
 };

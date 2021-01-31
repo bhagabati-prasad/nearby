@@ -1,11 +1,10 @@
 const router = require("express").Router();
-const auth = require("../middleware/auth");
 const {
   rentAdPost,
   serviceAdPost,
 } = require("../controllers/postAdController");
 
-router.post("/rent", auth, rentAdPost);
-router.post("/service", auth, serviceAdPost);
+router.post("/rent", rentAdPost);
+router.post("/service", serviceAdPost);
 
 module.exports = router;

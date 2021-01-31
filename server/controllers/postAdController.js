@@ -3,9 +3,9 @@ const Item = require("../models/Item");
 // @route POST /api/post/rent
 module.exports.rentAdPost = async (req, res) => {
   try {
-    // console.log({ ...req.body });
+    const userId = req.headers["user-id"];
     const createRentAd = new Item({
-      userId: req.userId,
+      userId: userId,
       category: "rent",
       subcategory: undefined,
       title: req.body.title,
@@ -20,7 +20,7 @@ module.exports.rentAdPost = async (req, res) => {
         pincode: req.body.pincode,
         country: "India",
       },
-      images: ["default-rent-image.jpg"],
+      images: ["default-rent-image.jpg", "default-rent-image2.jpg"],
     });
     const rentItem = await createRentAd.save();
     console.log("rent item added ", rentItem);
@@ -34,8 +34,9 @@ module.exports.rentAdPost = async (req, res) => {
 // @route POST /api/post/service
 module.exports.serviceAdPost = async (req, res) => {
   try {
+    const userId = req.headers["user-id"];
     const createServiceAd = new Item({
-      userId: req.userId,
+      userId: userId,
       category: req.body.category,
       subcategory: req.body.subcategory,
       title: req.body.title,
@@ -50,7 +51,7 @@ module.exports.serviceAdPost = async (req, res) => {
         pincode: req.body.pincode,
         country: "India",
       },
-      images: ["default-service-image.jpg"],
+      images: ["default-service-image.jpg", "default-service-image2.jpg"],
     });
     const serviceItem = await createServiceAd.save();
     console.log("service item added ", serviceItem);

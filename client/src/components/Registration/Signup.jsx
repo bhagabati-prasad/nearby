@@ -3,13 +3,11 @@ import Axios from "axios";
 import {
   Center,
   FormContainer,
-  LeftImgDiv,
-  RightFormDiv,
+  FormDiv,
   FormField,
   Input,
 } from "./regElements";
 import { Link, useHistory } from "react-router-dom";
-import SignupBg from "../../image/writing.jpg";
 import { UserContext } from "../Context/UserContext";
 
 const Signup = () => {
@@ -17,13 +15,22 @@ const Signup = () => {
   // set user from context
   const { setUser } = useContext(UserContext);
   const [term, setTerm] = useState(false);
-  const [signup, setSignup] = useState({
-    fname: "",
-    lname: "",
+  const [info, setInfo] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
+    altPhone: "",
     password: "",
     conPassword: "",
+  });
+  const [address, setAddress] = useState({
+    house: "",
+    street: "",
+    area: "",
+    city: "",
+    state: "",
+    pincode: "",
   });
   const [errors, setErrors] = useState({
     fnameErr: "",
@@ -35,30 +42,30 @@ const Signup = () => {
     termErr: "",
   });
 
-  const { fname, lname, email, phone, password, conPassword } = signup;
   const {
     fnameErr,
     lnameErr,
     emailErr,
-    phoneErr,
     passwordErr,
     conPasswordErr,
     termErr,
   } = errors;
 
-  const handleChange = (e) =>
-    setSignup({ ...signup, [e.target.name]: e.target.value });
+  const handleChangeInfo = (e) =>
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  const handleChangeAddress = (e) =>
+    setAddress({ ...address, [e.target.name]: e.target.value });
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       if (term) {
-        if (password === conPassword) {
+        if (info.password === info.conPassword) {
           Axios.defaults.withCredentials = true;
           const res = await Axios.post("http://localhost:4000/api/signup", {
-            ...signup,
+            info,
+            address,
           });
-          console.log(res);
           setUser({ ...res.data });
           localStorage.setItem("auth-token", res.data.token);
           history.push("/");
@@ -76,32 +83,31 @@ const Signup = () => {
   return (
     <>
       <Center>
-        <FormContainer>
-          <LeftImgDiv bg={SignupBg} />
-          <RightFormDiv>
-            <h2>Signup</h2>
-            <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignup}>
+          <FormContainer>
+            <FormDiv>
+              <h2>Signup</h2>
               <div className='d-flex flex-column flex-md-column flex-lg-row'>
                 <FormField half>
-                  <label htmlFor='fname'>First name</label>
+                  <label htmlFor='firstName'>First name</label>
                   <Input
                     type='text'
-                    id='fname'
-                    name='fname'
-                    value={fname}
-                    onChange={handleChange}
+                    id='firstName'
+                    name='firstName'
+                    value={info.firstName}
+                    onChange={handleChangeInfo}
                     required
                   />
                   {fnameErr && <p>{fnameErr}</p>}
                 </FormField>
                 <FormField>
-                  <label htmlFor='lname'>Last name</label>
+                  <label htmlFor='lastName'>Last name</label>
                   <Input
                     type='text'
-                    id='lname'
-                    name='lname'
-                    value={lname}
-                    onChange={handleChange}
+                    id='lastName'
+                    name='lastName'
+                    value={info.lastName}
+                    onChange={handleChangeInfo}
                     required
                   />
                   {lnameErr && <p>{lnameErr}</p>}
@@ -110,35 +116,47 @@ const Signup = () => {
               <FormField>
                 <label htmlFor='email'>Email</label>
                 <Input
-                  type='text'
+                  type='email'
                   id='email'
                   name='email'
-                  value={email}
-                  onChange={handleChange}
+                  value={info.email}
+                  onChange={handleChangeInfo}
                   required
                 />
                 {emailErr && <p>{emailErr}</p>}
               </FormField>
-              <FormField>
-                <label htmlFor='phone'>Phone</label>
-                <Input
-                  type='tel'
-                  id='phone'
-                  name='phone'
-                  value={phone}
-                  onChange={handleChange}
-                  required
-                />
-                {phoneErr && <p>{phoneErr}</p>}
-              </FormField>
+              <div className='d-flex flex-column flex-md-column flex-lg-row'>
+                <FormField half>
+                  <label htmlFor='phone'>Phone</label>
+                  <Input
+                    type='tel'
+                    id='phone'
+                    name='phone'
+                    value={info.phone}
+                    onChange={handleChangeInfo}
+                    required
+                  />
+                </FormField>
+                <FormField>
+                  <label htmlFor='altPhone'>Alternate Phone</label>
+                  <Input
+                    type='tel'
+                    id='altPhone'
+                    name='altPhone'
+                    value={info.altPhone}
+                    onChange={handleChangeInfo}
+                    required
+                  />
+                </FormField>
+              </div>
               <FormField>
                 <label htmlFor='password'>Password</label>
                 <Input
                   type='text'
                   id='password'
                   name='password'
-                  value={password}
-                  onChange={handleChange}
+                  value={info.password}
+                  onChange={handleChangeInfo}
                   required
                 />
                 {passwordErr && <p>{passwordErr}</p>}
@@ -149,12 +167,89 @@ const Signup = () => {
                   type='text'
                   id='conPassword'
                   name='conPassword'
-                  value={conPassword}
-                  onChange={handleChange}
+                  value={info.conPassword}
+                  onChange={handleChangeInfo}
                   required
                 />
                 {conPasswordErr && <p>{conPasswordErr}</p>}
               </FormField>
+            </FormDiv>
+
+            {/* Address Fields */}
+            <FormDiv>
+              <h1>Your Current Address</h1>
+              <div className='d-flex flex-column flex-md-column flex-lg-row'>
+                <FormField half>
+                  <label htmlFor='house'>House Number</label>
+                  <Input
+                    type='text'
+                    id='house'
+                    name='house'
+                    value={address.house}
+                    onChange={handleChangeAddress}
+                    required
+                  />
+                </FormField>
+                <FormField>
+                  <label htmlFor='street'>Street</label>
+                  <Input
+                    type='text'
+                    id='street'
+                    name='street'
+                    value={address.street}
+                    onChange={handleChangeAddress}
+                    required
+                  />
+                </FormField>
+              </div>
+              <div className='d-flex flex-column flex-md-column flex-lg-row'>
+                <FormField half>
+                  <label htmlFor='area'>Area</label>
+                  <Input
+                    type='text'
+                    id='area'
+                    name='area'
+                    value={address.area}
+                    onChange={handleChangeAddress}
+                    required
+                  />
+                </FormField>
+                <FormField>
+                  <label htmlFor='city'>City</label>
+                  <Input
+                    type='text'
+                    id='city'
+                    name='city'
+                    value={address.city}
+                    onChange={handleChangeAddress}
+                    required
+                  />
+                </FormField>
+              </div>
+              <div className='d-flex flex-column flex-md-column flex-lg-row'>
+                <FormField half>
+                  <label htmlFor='state'>State</label>
+                  <Input
+                    type='text'
+                    id='state'
+                    name='state'
+                    value={address.state}
+                    onChange={handleChangeAddress}
+                    required
+                  />
+                </FormField>
+                <FormField>
+                  <label htmlFor='pincode'>Pincode</label>
+                  <Input
+                    type='tel'
+                    id='pincode'
+                    name='pincode'
+                    value={address.pincode}
+                    onChange={handleChangeAddress}
+                    required
+                  />
+                </FormField>
+              </div>
               <FormField>
                 <div className='d-flex align-items-center my-2'>
                   <input
@@ -172,12 +267,12 @@ const Signup = () => {
               <FormField>
                 <button type='submit'>Signup</button>
               </FormField>
-            </form>
-            <p style={{ fontSize: "1.45rem" }}>
-              Already have an account? <Link to='/login'>Log in</Link>
-            </p>
-          </RightFormDiv>
-        </FormContainer>
+              <p style={{ fontSize: "1.45rem" }}>
+                Already have an account? <Link to='/login'>Log in</Link>
+              </p>
+            </FormDiv>
+          </FormContainer>
+        </form>
       </Center>
     </>
   );

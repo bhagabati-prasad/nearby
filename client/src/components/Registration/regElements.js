@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Center = styled.section`
-  min-height: 68vh;
+  min-height: 69vh;
   display: grid;
   place-items: center;
   padding: 3rem 0;
@@ -11,10 +11,11 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 70%;
+  min-width: 70%;
   min-height: 87%;
+  margin: 0 auto;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.12);
 `;
@@ -28,7 +29,7 @@ export const LeftImgDiv = styled.div`
   position: relative;
 `;
 
-export const RightFormDiv = styled.div`
+export const FormDiv = styled.div`
   width: 50%;
   height: 100%;
   padding: 1.5rem 2.8rem;
@@ -37,6 +38,7 @@ export const RightFormDiv = styled.div`
     color: #444;
     font-size: 2rem;
     padding-bottom: 7px;
+    margin-bottom: 0.7rem;
     position: relative;
     &::before {
       content: "";
@@ -53,8 +55,9 @@ export const FormField = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 1rem 0;
+  margin: 1.4rem 0;
   margin-right: ${(props) => (props.half ? "2.4rem" : "0")};
+  margin-bottom: ${(props) => (props.half ? "1rem" : "1.4rem")};
   label {
     color: #555;
     font-size: 1.5rem;

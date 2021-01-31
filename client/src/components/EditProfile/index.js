@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import UpdatePicture from "./UpdatePicture";
 import UpdateInfo from "./UpdateInfo";

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import {
   AdHeading,
   AdTitle,
@@ -14,9 +14,12 @@ import {
   SubmitBtn,
 } from "./PostElements";
 import Axios from "axios";
+import { UserContext } from "../Context/UserContext";
+import { NavMenuContext } from "../Context/NavMenuContext";
 
 const PostService = () => {
-  const [navMenu, setNavMenu] = useState([]);
+  const { navMenu } = useContext(NavMenuContext);
+  const { user } = useContext(UserContext);
   const [serviceData, setServiceData] = useState({
     title: "",
     description: "",
@@ -34,27 +37,26 @@ const PostService = () => {
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
 
   // find category for submenu
-  const subCategory = navMenu.find((nav) => nav.menu === serviceData.category);
+  const subCategory =
+    navMenu && navMenu.find((nav) => nav.menu === serviceData.category);
 
   const handlePostService = async (e) => {
     e.preventDefault();
     try {
-      const res = await Axios.post("http://localhost:4000/api/post/service", {
-        ...serviceData,
-      });
+      const res = await Axios.post(
+        "http://localhost:4000/api/post/service",
+        {
+          ...serviceData,
+        },
+        {
+          headers: { "user-id": user.userData._id },
+        }
+      );
       console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    const getmenu = async () => {
-      const res = await Axios.get("http://127.0.0.1:4000/api/navmenu");
-      setNavMenu(res.data);
-    };
-    getmenu();
-  }, []);
 
   return (
     <>
@@ -102,13 +104,14 @@ const PostService = () => {
                 required
               >
                 <option value=''>Select Category</option>
-                {navMenu.map((nav, indx) =>
-                  nav.menu ? (
-                    <option key={indx} value={nav.menu}>
-                      {nav.menu}
-                    </option>
-                  ) : null
-                )}
+                {navMenu &&
+                  navMenu.map((nav, indx) =>
+                    nav.menu ? (
+                      <option key={indx} value={nav.menu}>
+                        {nav.menu}
+                      </option>
+                    ) : null
+                  )}
               </SelectList>
             </FormRow>
             <FormRow>

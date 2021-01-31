@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { getItem } = require("../controllers/itemController");
-const auth = require("../middleware/auth");
 
-router.post("/", auth, getItem);
+router.get("/", getItem);
 
 module.exports = router;

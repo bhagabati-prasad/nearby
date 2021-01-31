@@ -1,25 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { HomeTopMap } from "./HomeElements";
-import axios from "axios";
 import { GrLocationPin } from "react-icons/gr";
+import { LocationContext } from "../Context/LocationContext";
 
 const HomeContents = () => {
-  const [loc, setLoc] = useState(false);
-  const { city, state, country_name, postal } = loc;
-
-  useEffect(() => {
-    const getLoc = async () => {
-      const geoLocationDB_URL =
-        "https://geolocation-db.com/json/09ba3820-0f88-11eb-9ba6-e1dd7dece2b8";
-      try {
-        const get = await axios.get(geoLocationDB_URL);
-        setLoc(get.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getLoc();
-  }, []);
+  const { location } = useContext(LocationContext);
+  console.log("homesidebarmap", location);
+  const { city, state, country_name, pincode } = location;
 
   return (
     <>
@@ -28,8 +15,8 @@ const HomeContents = () => {
           <GrLocationPin
             style={{ fontSize: "2.2rem", marginRight: "0.6rem" }}
           />
-          {loc
-            ? `Showing location for: ${city}, ${state}, ${country_name}, ${postal}`
+          {location
+            ? `Showing location for: ${city}, ${state}, ${country_name}, ${pincode}`
             : "Fetching location..."}
         </p>
         {/* <HomeTopMap

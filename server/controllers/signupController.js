@@ -4,11 +4,8 @@ const User = require("../models/User");
 module.exports.signupPost = async (req, res) => {
   try {
     const registerUser = new User({
-      firstName: req.body.fname,
-      lastName: req.body.lname,
-      email: req.body.email,
-      phone: req.body.phone,
-      password: req.body.password,
+      ...req.body.info,
+      address: { ...req.body.address },
     });
 
     // create token

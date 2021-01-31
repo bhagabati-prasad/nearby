@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   AdHeading,
   AdTitle,
@@ -13,8 +13,10 @@ import {
   SubmitBtn,
 } from "./PostElements";
 import Axios from "axios";
+import { UserContext } from "../Context/UserContext";
 
 const PostRent = () => {
+  const { user } = useContext(UserContext);
   const [rentData, setRentData] = useState({
     title: "",
     description: "",
@@ -33,9 +35,15 @@ const PostRent = () => {
   const handlePostRent = async (e) => {
     e.preventDefault();
     try {
-      const res = await Axios.post("http://localhost:4000/api/post/rent", {
-        ...rentData,
-      });
+      const res = await Axios.post(
+        "http://localhost:4000/api/post/rent",
+        {
+          ...rentData,
+        },
+        {
+          headers: { "user-id": user.userData._id },
+        }
+      );
       console.log(res);
     } catch (error) {
       console.log(error);

@@ -23,6 +23,12 @@ const itemSchema = new mongoose.Schema({
   price: {
     type: String,
   },
+  image: [
+    {
+      type: String,
+      // required: [true, "Upload image"],
+    },
+  ],
   address: {
     house: {
       type: String,
@@ -58,27 +64,40 @@ const itemSchema = new mongoose.Schema({
     phone: {
       type: Number,
     },
-    altPhone: {
-      type: String,
-    },
     email: {
       type: String,
     },
   },
-  image: [
-    {
+  location: {
+    type: {
       type: String,
-      // required: [true, "Upload image"],
+      enum: ["Point"],
     },
-  ],
-  coods: {
     lat: {
-      type: String,
+      type: Number,
     },
     lon: {
-      type: String,
+      type: Number,
     },
+    formattedAddress: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+itemSchema.pre("save", async function (next) {
+  const loc = await geoCoder.geocode(
+    `${this.address.area}, ${this.address.city}, ${this.address.state}, India`
+  );
+  this.location = {
+    type: "Point",
+    lat: loc[0].latitude,
+    lon: loc[0].longitude,
+    formattedAddress: loc[0].formattedAddress,
+  };
+  next();
 });
 
 const Item = mongoose.model("item", itemSchema);

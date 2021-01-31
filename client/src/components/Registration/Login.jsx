@@ -4,7 +4,7 @@ import {
   Center,
   FormContainer,
   LeftImgDiv,
-  RightFormDiv,
+  FormDiv,
   FormField,
   Input,
 } from "./regElements";
@@ -49,7 +49,7 @@ const Login = () => {
       <Center>
         <FormContainer>
           <LeftImgDiv bg={LoginBg} />
-          <RightFormDiv>
+          <FormDiv>
             <h2>Login</h2>
             <br />
             <form onSubmit={handleLogin}>
@@ -82,7 +82,7 @@ const Login = () => {
             <p style={{ fontSize: "1.45rem" }}>
               Don't have an account? <Link to='/signup'>Sign up</Link>
             </p>
-          </RightFormDiv>
+          </FormDiv>
         </FormContainer>
       </Center>
     </>

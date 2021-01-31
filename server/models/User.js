@@ -1,9 +1,16 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const geoCoder = require("../utils/geocoder");
 
 // create user schema
 const userSchema = new mongoose.Schema({
+  avatar: {
+    type: String,
+  },
+  cloudinary_id: {
+    type: String,
+  },
   firstName: {
     type: String,
     required: [true, "First name is required"],
@@ -43,18 +50,34 @@ const userSchema = new mongoose.Schema({
     city: {
       type: String,
     },
-    pincode: {
-      type: Number,
-    },
     state: {
       type: String,
     },
+    pincode: {
+      type: Number,
+    },
+  },
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"],
+    },
+    lat: {
+      type: Number,
+    },
+    lon: {
+      type: Number,
+    },
+    formattedAddress: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
   tokens: [
     {
       token: {
         type: String,
-        // required: true
       },
     },
   ],
@@ -71,7 +94,6 @@ userSchema.methods.generateToken = async function () {
     return token;
   } catch (error) {
     console.log(error);
-    res.json(error);
   }
 };
 
@@ -79,6 +101,15 @@ userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
   }
+  const loc = await geoCoder.geocode(
+    `${this.address.area}, ${this.address.city}, ${this.address.state}, India`
+  );
+  this.location = {
+    type: "Point",
+    lat: loc[0].latitude,
+    lon: loc[0].longitude,
+    formattedAddress: loc[0].formattedAddress,
+  };
   next();
 });
 
