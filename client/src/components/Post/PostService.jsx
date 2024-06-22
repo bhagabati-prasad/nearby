@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   AdHeading,
   AdTitle,
@@ -12,51 +13,93 @@ import {
   Textarea,
   SelectList,
   SubmitBtn,
-} from "./PostElements";
-import Axios from "axios";
-import { UserContext } from "../Context/UserContext";
-import { NavMenuContext } from "../Context/NavMenuContext";
+} from './PostElements';
+import Axios from 'axios';
+import { UserContext } from '../Context/UserContext';
+import { NavMenuContext } from '../Context/NavMenuContext';
+import { ItemContext } from '../Context/ItemContext';
 
 const PostService = () => {
-  const { navMenu } = useContext(NavMenuContext);
+  const history = useHistory();
+  // const { navMenu } = useContext(NavMenuContext);
   const { user } = useContext(UserContext);
+  const { setUpdate } = useContext(ItemContext);
+  const navMenu = [
+    'store',
+    'hospital',
+    'food',
+    'gas-station',
+    'garage',
+    'mall',
+    'beauty',
+    'institute',
+    'entertainment',
+  ];
   const [serviceData, setServiceData] = useState({
-    title: "",
-    description: "",
-    category: "",
-    subcategory: "",
-    house: "",
-    street: "",
-    area: "",
-    city: "",
-    state: "",
-    pincode: "",
+    title: '',
+    description: '',
+    category: '',
+    subcategory: '',
+    house: '',
+    street: '',
+    area: '',
+    city: '',
+    state: '',
+    pincode: '',
   });
+  const [images, setImages] = useState([]);
+  const handleImageChange = (e) => {
+    const files = e.target.files;
+    let imgs = [];
+    for (let i of files) {
+      imgs.push(i.name);
+    }
+    setImages(imgs);
+  };
 
   const handleChange = (e) =>
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
 
   // find category for submenu
-  const subCategory =
-    navMenu && navMenu.find((nav) => nav.menu === serviceData.category);
+  // const subCategory =
+  // navMenu && navMenu.find((nav) => nav.menu === serviceData.category);
 
   const handlePostService = async (e) => {
     e.preventDefault();
     try {
       const res = await Axios.post(
-        "http://localhost:4000/api/post/service",
+        'http://localhost:4000/api/post/service',
         {
           ...serviceData,
+          name: `${user.userData.firstName} ${user.userData.lastName}`,
+          phone: user.userData.phone,
+          email: user.userData.email,
+          images,
         },
         {
-          headers: { "user-id": user.userData._id },
+          headers: { 'user-id': user.userData._id },
         }
       );
-      console.log(res);
+      if (res.data) {
+        setUpdate((prev) => !prev);
+        history.push('/');
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setServiceData({
+      ...serviceData,
+      house: user ? user?.userData?.address?.house : '',
+      street: user ? user?.userData?.address?.street : '',
+      area: user ? user?.userData?.address?.area : '',
+      city: user ? user?.userData?.address?.city : '',
+      state: user ? user?.userData?.address?.state : '',
+      pincode: user ? user?.userData?.address?.pincode : '',
+    });
+  }, []);
 
   return (
     <>
@@ -105,17 +148,34 @@ const PostService = () => {
               >
                 <option value=''>Select Category</option>
                 {navMenu &&
-                  navMenu.map((nav, indx) =>
-                    nav.menu ? (
-                      <option key={indx} value={nav.menu}>
-                        {nav.menu}
-                      </option>
-                    ) : null
+                  navMenu.map(
+                    (nav, indx) =>
+                      nav && (
+                        <option
+                          key={indx}
+                          value={nav}
+                          className='text-capitalize'
+                        >
+                          {nav}
+                        </option>
+                      )
                   )}
               </SelectList>
             </FormRow>
             <FormRow>
-              {subCategory && subCategory.submenu.length > 0 ? (
+              <Label>Image</Label>
+              <Input
+                type='file'
+                name='images'
+                onChange={handleImageChange}
+                accept='image/*'
+                multiple
+              />
+            </FormRow>
+            <FormRow>
+              {/* {subCategory &&
+              subCategory?.submenu &&
+              subCategory?.submenu.length > 0 ? (
                 <>
                   <Label htmlFor='subcategory'>
                     Sub Category<Star>*</Star>
@@ -134,7 +194,7 @@ const PostService = () => {
                     ))}
                   </SelectList>
                 </>
-              ) : null}
+              ) : null} */}
             </FormRow>
           </SplitRow>
           {/* Address section */}

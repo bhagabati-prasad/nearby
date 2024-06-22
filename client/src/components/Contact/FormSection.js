@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Col } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -59,15 +59,18 @@ const InputField = styled.input`
   height: 4rem;
   padding: 0 1.4rem;
   outline: none;
-  border: 1.4px solid #444;
+  border: 1.4px solid #999;
   color: #555;
   font-size: 1.5rem;
   background: transparent;
   flex: 1;
   border-radius: 4px;
   transition: border 0.2s;
+  &:hover {
+    border: 1.4px solid #222;
+  }
   &:focus {
-    border: 1.4px solid rgba(0, 0, 255, 0.6);
+    border: 1.4px solid #1e90ff;
   }
 `;
 
@@ -76,15 +79,18 @@ const MessageField = styled.textarea`
   max-height: 14rem;
   padding: 1rem 1.4rem;
   outline: none;
-  border: 1.4px solid #444;
+  border: 1.4px solid #999;
   color: #555;
   font-size: 1.5rem;
   background: transparent;
   flex: 1;
   border-radius: 4px;
   transition: border 0.2s;
+  &:hover {
+    border: 1.4px solid #222;
+  }
   &:focus {
-    border: 1.4px solid rgba(0, 0, 255, 0.6);
+    border: 1.4px solid #1e90ff;
   }
 `;
 
@@ -114,11 +120,6 @@ export default function FormSection() {
     subject: "",
     message: "",
   });
-
-  //   const fname = useRef("");
-  //   const email = useRef();
-  //   const subject = useRef();
-  //   const message = useRef();
 
   const { name, email, subject, message } = form;
 

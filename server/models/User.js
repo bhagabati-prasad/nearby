@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const geoCoder = require("../utils/geocoder");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const geoCoder = require('../utils/geocoder');
 
 // create user schema
 const userSchema = new mongoose.Schema({
@@ -13,20 +13,20 @@ const userSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    required: [true, "First name is required"],
+    required: [true, 'First name is required'],
   },
   lastName: {
     type: String,
-    required: [true, "Last name is required"],
+    required: [true, 'Last name is required'],
   },
   email: {
     type: String,
-    required: [true, "Email is required"],
+    required: [true, 'Email is required'],
     unique: true,
   },
   phone: {
     type: Number,
-    required: [true, "Phone number is required"],
+    required: [true, 'Phone number is required'],
     // unique: true,
   },
   altPhone: {
@@ -34,9 +34,19 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Password is required"],
-    minlength: [3, "Password must be 3 character"],
+    required: [true, 'Password is required'],
+    minlength: [3, 'Password must be 3 character'],
   },
+  favourites: [
+    {
+      id: String,
+      category: String,
+      title: String,
+      description: String,
+      price: String,
+      address: String,
+    },
+  ],
   address: {
     house: {
       type: String,
@@ -60,7 +70,7 @@ const userSchema = new mongoose.Schema({
   location: {
     type: {
       type: String,
-      enum: ["Point"],
+      enum: ['Point'],
     },
     lat: {
       type: Number,
@@ -97,15 +107,15 @@ userSchema.methods.generateToken = async function () {
   }
 };
 
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   const loc = await geoCoder.geocode(
     `${this.address.area}, ${this.address.city}, ${this.address.state}, India`
   );
   this.location = {
-    type: "Point",
+    type: 'Point',
     lat: loc[0].latitude,
     lon: loc[0].longitude,
     formattedAddress: loc[0].formattedAddress,
@@ -114,5 +124,5 @@ userSchema.pre("save", async function (next) {
 });
 
 // create model
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model('user', userSchema);
 module.exports = User;

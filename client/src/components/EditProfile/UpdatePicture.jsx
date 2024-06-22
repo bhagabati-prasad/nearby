@@ -1,21 +1,21 @@
-import { useState, useContext } from "react";
-import styled from "styled-components";
-import Axios from "axios";
-import { UserContext } from "../Context/UserContext";
-import { Heading } from "./UpdateInfo";
+import { useState, useContext } from 'react';
+import styled from 'styled-components';
+import Axios from 'axios';
+import { UserContext } from '../Context/UserContext';
+import { Heading } from './UpdateInfo';
 
 const ProfilePicDiv = styled.div`
   display: flex;
   height: 15rem;
   width: 15rem;
-  background-color: #8c0;
+  background-color: #fff;
   border-radius: 50%;
   margin: 2rem 0;
   margin-right: 3rem;
   overflow: hidden;
   position: relative;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -89,7 +89,7 @@ const DeletePicture = styled.p`
 
 const UpdatePicture = () => {
   const { user, setUser } = useContext(UserContext);
-  const [profilePicture, setProfilePicture] = useState("");
+  const [profilePicture, setProfilePicture] = useState('');
   const [previewSource, setPreviewSource] = useState();
 
   const handleFileInputChange = (e) => {
@@ -107,10 +107,9 @@ const UpdatePicture = () => {
 
   const handleSubmitPicture = (e) => {
     e.preventDefault();
-    console.log([e.target.value].length);
     if (!previewSource) return;
-    // uploadImage(previewSource);
-    // setPreviewSource();
+    uploadImage(previewSource);
+    setPreviewSource();
   };
 
   const uploadImage = async (base64EncodedImage) => {
@@ -164,7 +163,7 @@ const UpdatePicture = () => {
         {previewSource ? (
           <h2
             className='text-danger'
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             onClick={() => setPreviewSource()}
           >
             Cancel this picture
@@ -178,6 +177,7 @@ const UpdatePicture = () => {
           name='image'
           onChange={handleFileInputChange}
           value={profilePicture}
+          accept='image/*'
         />
         <Button type='submit'>Upload</Button>
       </form>

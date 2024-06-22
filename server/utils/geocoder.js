@@ -4,6 +4,6 @@ const options = {
   provider: "openstreetmap",
 };
 
-const geoCoder = nodeGeocoder(options);
+const geocoder = nodeGeocoder(options);
 
-module.exports = geoCoder;
+module.exports = geocoder;

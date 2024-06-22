@@ -1,11 +1,5 @@
-import { useContext, useEffect } from "react";
-import {
-  Route,
-  Switch,
-  NavLink,
-  useLocation,
-  useHistory,
-} from "react-router-dom";
+import { useContext } from "react";
+import { Route, Switch, NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../Context/UserContext";
 import FavouriteSection from "./FavouriteSection";

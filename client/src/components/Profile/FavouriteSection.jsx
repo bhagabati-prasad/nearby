@@ -1,25 +1,31 @@
-import styled from "styled-components";
-import { Container, Row } from "react-bootstrap";
+import styled from 'styled-components';
+import { Container, Row } from 'react-bootstrap';
+import { UserContext } from '../Context/UserContext';
+import { useContext } from 'react';
+import CardItem from '../CardItem';
 
 const FavouriteSection = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       {/* <h3>Favourites</h3> */}
       {/* <hr /> */}
       <Container>
-        <div className='jumbotron'>
-          <h1 className='display-4'>Nothing is in favourite section</h1>
-        </div>
         <Row>
-          {/* <div className='col-md-4 col-12 p-4'>
-                <div className='card'>dg</div>
+          {user &&
+          user?.userData?.favourites &&
+          user?.userData?.favourites.length ? (
+            user?.userData?.favourites.map((fav) => (
+              <div className='col-md-4 col-12 px-3' key={fav._id}>
+                <CardItem itemProps={fav} />
               </div>
-              <div className='col-md-4 col-12 p-4'>
-                <div className='card'>dg</div>
-              </div>
-              <div className='col-md-4 col-12 p-4'>
-                <div className='card'>dg</div>
-              </div> */}
+            ))
+          ) : (
+            <div className='jumbotron'>
+              <h1>Add items to favourite section</h1>
+            </div>
+          )}
         </Row>
       </Container>
     </>

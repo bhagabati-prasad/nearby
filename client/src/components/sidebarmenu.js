@@ -1,110 +1,113 @@
-import * as Fa from "react-icons/fa";
-import * as Io from "react-icons/io";
-import * as Ai from "react-icons/ai";
-import * as Bi from "react-icons/bi";
-import * as Ri from "react-icons/ri";
-import * as Gi from "react-icons/gi";
+import * as Fa from 'react-icons/fa';
+import * as Io from 'react-icons/io';
+import * as Ai from 'react-icons/ai';
+import * as Bi from 'react-icons/bi';
+import * as Ri from 'react-icons/ri';
+import * as Gi from 'react-icons/gi';
 
 const iconClosed = <Io.IoIosArrowDown />;
 const iconOpened = <Io.IoIosArrowUp />;
 
 export const sidemenu = [
   {
-    title: "For rent",
-    path: "/rent",
+    title: 'For rent',
+    path: '/category/rent',
     icon: <Ri.RiHome7Line />,
   },
   {
-    title: "Nearby Stores",
-    path: "/stores",
+    title: 'Nearby Stores',
+    path: '/category/store',
     icon: <Bi.BiStore />,
-    iconClosed,
-    iconOpened,
-    subnav: [
-      {
-        title: "Grocery stores",
-        path: "/stores/grocery",
-        icon: <Ri.RiStore2Line />,
-      },
-      {
-        title: "Medicine stores",
-        path: "/stores/medicine",
-        icon: <Ai.AiOutlineMedicineBox />,
-      },
-      {
-        title: "Book stores",
-        path: "/stores/book",
-        icon: <Ri.RiBook2Line />,
-      },
-      {
-        title: "Electronics",
-        path: "/stores/electronics",
-        icon: <Gi.GiElectric />,
-      },
-    ],
+    // iconClosed,
+    // iconOpened,
+    // subnav: [
+    //   {
+    //     title: 'All Stores',
+    //     path: '/category/stores',
+    //   },
+    //   {
+    //     title: 'Grocery stores',
+    //     path: '/category/stores/sub/category/grocery',
+    //     icon: <Ri.RiStore2Line />,
+    //   },
+    //   {
+    //     title: 'Medicine stores',
+    //     path: '/category/stores/sub/category/medicine',
+    //     icon: <Ai.AiOutlineMedicineBox />,
+    //   },
+    //   {
+    //     title: 'Book stores',
+    //     path: '/category/stores/sub/category/book',
+    //     icon: <Ri.RiBook2Line />,
+    //   },
+    //   {
+    //     title: 'Electronics',
+    //     path: '/category/stores/sub/category/electronics',
+    //     icon: <Gi.GiElectric />,
+    //   },
+    // ],
   },
   {
-    title: "Hospitals",
-    path: "/hospitals",
+    title: 'Hospitals',
+    path: '/category/hospital',
     icon: <Fa.FaRegHospital />,
   },
   {
-    title: "Foods & Drinks",
-    path: "/foods-and-drinks",
+    title: 'Foods & Drinks',
+    path: '/category/food',
     icon: <Bi.BiDrink />,
-    iconClosed,
-    iconOpened,
-    subnav: [
-      {
-        title: "Coffee Shop",
-        path: "/foods-and-drinks/coffee",
-        icon: <Bi.BiCoffee />,
-      },
-      {
-        title: "Ice cream parlour",
-        path: "/foods-and-drinks/icecream",
-        icon: <Fa.FaIceCream />,
-      },
-      {
-        title: "Hotels & Restaurants",
-        path: "/foods-and-drinks/hotels",
-        icon: <Fa.FaIceCream />,
-      },
-    ],
+    // iconClosed,
+    // iconOpened,
+    // subnav: [
+    //   {
+    //     title: 'All Items',
+    //     path: '/category/foods',
+    //   },
+    //   {
+    //     title: 'Coffee Shop',
+    //     path: '/category/foods',
+    //     icon: <Bi.BiCoffee />,
+    //   },
+    //   {
+    //     title: 'Ice cream parlour',
+    //     path: '/category/foods',
+    //     icon: <Fa.FaIceCream />,
+    //   },
+    //   {
+    //     title: 'Hotels & Restaurants',
+    //     path: '/category/foods',
+    //     icon: <Fa.FaIceCream />,
+    //   },
+    // ],
   },
   {
-    title: "gas station",
-    path: "/gas-station",
+    title: 'gas station',
+    path: '/category/gas-station',
     icon: <Gi.GiGasPump />,
   },
   {
-    title: "garage",
-    path: "/garage",
+    title: 'garage',
+    path: '/category/garage',
     icon: <Gi.GiMechanicGarage />,
   },
   {
-    title: "Shopping mall",
-    path: "/shopping-malls",
+    title: 'Shopping mall',
+    path: '/category/mall',
     icon: <Ai.AiOutlineShoppingCart />,
   },
   {
-    title: "Beauty & haircut",
-    path: "/beauty",
+    title: 'Beauty & haircut',
+    path: '/category/beauty',
     icon: <Ai.AiOutlineScissor />,
   },
   {
-    title: "College & Institute",
-    path: "/college",
+    title: 'College & Institute',
+    path: '/category/institute',
     icon: <Fa.FaSchool />,
   },
   {
-    title: "Religious places",
-    path: "/religious-places",
-    icon: <Bi.BiChurch />,
-  },
-  {
-    title: "Entertainment",
-    path: "/entertainment",
+    title: 'Entertainment',
+    path: '/category/entertainment',
     icon: <Bi.BiMovie />,
   },
 ];

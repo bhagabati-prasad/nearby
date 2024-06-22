@@ -1,15 +1,17 @@
 import { Route, Redirect } from "react-router-dom";
 
-const ProtectedRoute = ({ isAuth, component: Component, ...rest }) => {
+export const ProtectedRoute = ({ isAuth, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (user.isLoggedIn) {
-          return <Component />;
+        if (isAuth) {
+          return <Component {...rest} />;
         } else {
           return (
-            <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+            <Redirect
+              to={{ pathname: "/login", state: { from: props.location } }}
+            />
           );
         }
       }}
@@ -17,4 +19,23 @@ const ProtectedRoute = ({ isAuth, component: Component, ...rest }) => {
   );
 };
 
-export default ProtectedRoute;
+export const ReverseProtectedRoute = ({
+  isAuth,
+  component: Component,
+  ...rest
+}) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        if (isAuth) {
+          return (
+            <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+          );
+        } else {
+          return <Component />;
+        }
+      }}
+    />
+  );
+};

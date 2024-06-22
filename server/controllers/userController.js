@@ -1,5 +1,7 @@
 const User = require("../models/User");
+const cloudinary = require("../utils/cloudinary");
 
+// @PATCH /api/user/update/info
 module.exports.updateUser = async (req, res) => {
   try {
     const _id = req.headers["user-id"];
@@ -13,6 +15,7 @@ module.exports.updateUser = async (req, res) => {
   }
 };
 
+// @DELETE /api/user/delete/user/:id
 module.exports.deleteUser = async (req, res) => {
   try {
     // find user by id
@@ -21,7 +24,7 @@ module.exports.deleteUser = async (req, res) => {
     await cloudinary.uploader.destroy(user.cloudinary_id);
     // delete user
     await user.remove();
-    res.json({ status: true, user });
+    res.json({ status: true, isLoggedIn: false });
   } catch (error) {
     res.status(500).send(error);
   }

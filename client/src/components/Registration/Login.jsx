@@ -67,7 +67,7 @@ const Login = () => {
               <FormField style={{ margin: "2rem 0" }}>
                 <label htmlFor='password'>Password</label>
                 <Input
-                  type='text'
+                  type='password'
                   id='password'
                   name='password'
                   value={password}

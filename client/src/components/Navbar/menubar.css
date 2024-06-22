@@ -1,0 +1,28 @@
+.search {
+  position: relative;
+  height: 30px;
+}
+.search input {
+  width: 100%;
+  width: 200px;
+  height: 100%;
+  padding: 4px;
+  font-size: 1.5rem;
+}
+
+.seggestions {
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  z-index: 99;
+}
+.seggestions a {
+  text-decoration: none;
+  color: #111;
+  padding: 7px;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #999;
+}

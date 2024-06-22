@@ -152,7 +152,7 @@ const Signup = () => {
               <FormField>
                 <label htmlFor='password'>Password</label>
                 <Input
-                  type='text'
+                  type='password'
                   id='password'
                   name='password'
                   value={info.password}
@@ -164,7 +164,7 @@ const Signup = () => {
               <FormField>
                 <label htmlFor='conPassword'>Confirm password</label>
                 <Input
-                  type='text'
+                  type='password'
                   id='conPassword'
                   name='conPassword'
                   value={info.conPassword}

@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { NavLink as Link } from "react-router-dom";
-import { Col } from "react-bootstrap";
-import { GiHamburgerMenu } from "react-icons/gi";
+import styled from 'styled-components';
+import { NavLink as Link } from 'react-router-dom';
+import { Col } from 'react-bootstrap';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 export const HeaderNav = styled.header`
   width: 100%;
@@ -36,6 +36,7 @@ export const NavLogo = styled(Link)`
 export const NavXtraMenuWrap = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -54,75 +55,85 @@ export const ToggleMenu = styled(GiHamburgerMenu)`
   }
 `;
 
-// Search field
-export const SearchForm = styled.form`
+export const UserInfoContainer = styled.div`
+  margin-right: 2rem;
+  position: relative;
+  padding: 0.6rem 0.4rem;
+`;
+export const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  height: 4rem;
-  width: 40%;
-  overflow: hidden;
-  border-radius: 0.4rem;
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
+  cursor: pointer;
 `;
-export const SearchPincodeInput = styled.input`
-  width: 20%;
-  height: 4rem;
-  outline: none;
-  background: #eee;
-  padding: 0.5rem 1rem;
-  font-size: 1.6rem;
-  letter-spacing: 2px;
-  border: 1px solid #666;
-  border-radius: 0.4rem 0 0 0.4rem;
-  &:focus {
-    border: 1px solid #6c5ce7;
-  }
+export const UserImgContainer = styled.div`
+  height: 3.4rem;
+  width: 3.4rem;
+  background-color: #8c0;
+  border-radius: 50%;
+  margin-right: 0.7rem;
+  position: relative;
 `;
-export const SearchAreaInput = styled(SearchPincodeInput)`
-  flex-grow: 1;
-  letter-spacing: 0.7px;
-`;
-export const SearchBtn = styled.button`
-  height: 4rem;
-  padding: 0 2rem;
-  min-width: 4.3rem;
-  font-size: 1.6rem;
-  background: #666;
+export const UserInitials = styled.h3`
   color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+export const UserImg = styled.img`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+`;
+export const UserName = styled.h2`
+  margin: 0;
+`;
+export const UserDropdown = styled.div`
+  width: 100%;
+  display: ${(props) => (props.show ? 'block' : 'none')};
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 0.6rem;
+  z-index: 999;
+`;
+export const UserdropdownLink = styled(Link)`
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  margin: 1rem 0;
+  display: block;
+  width: 100%;
+  color: #222;
+  background-color: #fff;
+  font-size: 1.7rem;
+  transition: all 0.24s;
+  &:hover {
+    color: #1e90ff;
+    background-color: #eee;
+  }
+`;
+export const UserDropdownBtn = styled.button`
+  padding: 0.4rem 1rem;
+  text-align: left;
+  margin: 1rem 0;
+  display: block;
+  width: 100%;
+  color: #222;
+  background-color: #fff;
+  font-size: 1.7rem;
   outline: none;
   border: none;
-  display: grid;
-  place-items: center;
-  border-radius: 0 0.4rem 0.4rem 0;
-  &:focus {
-    outline: none;
-    border: none;
-  }
-  @media screen and (max-width: 768px) {
-    display: none;
-    margin: 0;
-  }
-`;
-// end
-
-export const UserInfo = styled.div`
-  padding: 0 1rem;
-  margin: 0 2.5rem;
-  display: flex;
-  align-items: center;
-  font-size: 2.4rem;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.24s;
   &:hover {
-    border-bottom: 1px solid #999;
-  }
-  p {
-    margin: 0 0 0 1rem;
-    font-size: 1.8rem;
-    white-space: nowrap;
+    color: #1e90ff;
+    background-color: #eee;
   }
 `;
 
@@ -161,6 +172,7 @@ export const RegisterBtn = styled(PostAdBtn)`
   background: #666666;
   color: #fff;
   border: 2px solid #999;
+  margin-right: 2rem;
   &:hover {
     background: #fff;
     color: #222;

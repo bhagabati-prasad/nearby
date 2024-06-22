@@ -50,7 +50,6 @@ export const LocationProvider = (props) => {
     };
     getLoc();
   }, [user]);
-  console.log("context", location);
 
   return (
     <LocationContext.Provider value={{ location, setLocation }}>

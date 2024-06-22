@@ -1,6 +1,6 @@
-import ReactDOM from "react-dom";
-import App from "./App";
-import { createGlobalStyle } from "styled-components";
+import ReactDOM from 'react-dom';
+import App from './App';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     /* 
@@ -35,9 +35,11 @@ export const GlobalStyle = createGlobalStyle`
         background: #ECEEF5;
         overflow-x: hidden;
         font-family: sans-serif;
+        position: relative;
     }
     ul, h1, h2, p {margin-bottom: 0;}
     h2 {font-size: calc(1.96rem - 0.2vw);}
+    select option {font-size: 1.5rem}
 `;
 
 ReactDOM.render(
@@ -45,5 +47,5 @@ ReactDOM.render(
     <GlobalStyle />
     <App />
   </>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

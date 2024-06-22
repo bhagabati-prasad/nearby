@@ -6,6 +6,8 @@ const {
 } = require("../controllers/profilePictureController");
 const { updateUser, deleteUser } = require("../controllers/userController");
 
+// @Route /api/user
+
 // not in use now -------
 router.patch("/upload/picture/:id", uploadProfilePicture);
 // -------

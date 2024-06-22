@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   List,
   SidebarMenu,
   SidebarLink,
   DropdownLink,
   SidebarTitle,
-} from "./HomeElements";
+} from './HomeElements';
 
-const SubMenu = ({ item }) => {
+const SubMenu = ({ item, handleShow }) => {
   const [subnav, setSubnav] = useState(false);
   const toggleDropdown = () => setSubnav(!subnav);
 
@@ -27,7 +27,11 @@ const SubMenu = ({ item }) => {
               : null}
           </SidebarMenu>
         ) : (
-          <SidebarLink to={item.path} subnav={subnav.toString()}>
+          <SidebarLink
+            to={item.path}
+            subnav={subnav.toString()}
+            onClick={handleShow}
+          >
             <SidebarTitle>
               <span>{item.icon}</span>
               <p>{item.title}</p>
@@ -42,7 +46,11 @@ const SubMenu = ({ item }) => {
         {subnav && item.subnav && (
           <div>
             {item.subnav.map((link, index) => (
-              <DropdownLink key={index} to={link.path}>
+              <DropdownLink
+                key={index}
+                to={`/category/${link.path}`}
+                onClick={handleShow}
+              >
                 {link.icon}
                 <span>{link.title}</span>
               </DropdownLink>

@@ -30,20 +30,20 @@ const PostFormContainer = styled.div`
   margin: 1.4rem 0;
 `;
 
-const Post = ({ match }) => {
+const Post = ({ path }) => {
   const location = useLocation().pathname;
   return (
     <>
       <MenuRow>
         <MenuLink
-          to={`${match.path}/ad`}
-          style={location === `${match.url}/ad` ? { color: "#111" } : {}}
+          to={`${path}/ad`}
+          style={location === `${path}/ad` ? { color: "#111" } : {}}
         >
           Post Rent
         </MenuLink>
         <MenuLink
-          to={`${match.path}/service`}
-          style={location === `${match.url}/service` ? { color: "#111" } : {}}
+          to={`${path}/service`}
+          style={location === `${path.url}/service` ? { color: "#111" } : {}}
         >
           Post Your Service
         </MenuLink>
@@ -51,8 +51,8 @@ const Post = ({ match }) => {
 
       <PostFormContainer>
         <Switch>
-          <Route path={`${match.path}/ad`} component={PostRent} />
-          <Route path={`${match.path}/service`} component={PostService} />
+          <Route path={`${path}/ad`} component={PostRent} />
+          <Route path={`${path}/service`} component={PostService} />
         </Switch>
       </PostFormContainer>
     </>

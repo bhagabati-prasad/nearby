@@ -13,6 +13,7 @@ const ProfilePicContainer = styled.div`
 const ProfilePicDiv = styled.div`
   height: 15.3rem;
   width: 15.3rem;
+  background-color: #8c0;
   margin: 0 auto;
   position: relative;
   border-radius: 50%;

@@ -1,0 +1,30 @@
+.compare_head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  margin: 1rem 0;
+}
+
+.card_body ul {
+  padding: 0;
+  margin: 1rem 0;
+}
+.card_body ul li {
+  list-style-type: none;
+  border-bottom: 1px solid #999;
+  padding: 0.7rem;
+  font-size: 1.6rem;
+  display: flex;
+  text-transform: capitalize;
+}
+.card_body ul li .key {
+  color: #444;
+  font-weight: bold;
+  flex-grow: 1;
+}
+.card_body p {
+  font-size: 1.4rem;
+  line-height: 1.7;
+}

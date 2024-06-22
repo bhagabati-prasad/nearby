@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Axios from "axios";
 import { UserContext } from "../Context/UserContext";
@@ -26,8 +27,15 @@ const InputField = styled(Input)`
     background-color: #f9f9f9;
   }
 `;
+const DeleteAccount = styled.h2`
+  color: #f00;
+  font-size: 1.8rem;
+  margin: 2.4rem 0;
+  cursor: pointer;
+`;
 
 const UdateInfo = () => {
+  const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   console.log(user);
   const [info, setInfo] = useState({
@@ -86,6 +94,26 @@ const UdateInfo = () => {
         userData: res.data.user,
         token: undefined,
       });
+      history.push("/");
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (
+      window.confirm("You can not recover this account again. Sur to delete?")
+    ) {
+      const res = await Axios.delete(
+        `http://localhost:4000/api/user/delete/user/${user?.userData?._id}`
+      );
+      if (res.data.status) {
+        localStorage.setItem("auth-token", "");
+        setUser({
+          isLoggedIn: res.data.isLoggedIn,
+          userData: undefined,
+          token: undefined,
+        });
+        history.push("/");
+      }
     }
   };
 
@@ -219,6 +247,9 @@ const UdateInfo = () => {
           <SubmitBtn type='submit'>Update</SubmitBtn>
         </FormRow>
       </form>
+      <DeleteAccount onClick={handleDeleteAccount}>
+        Delete account permanently?
+      </DeleteAccount>
     </>
   );
 };
